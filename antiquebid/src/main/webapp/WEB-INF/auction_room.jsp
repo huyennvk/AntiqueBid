@@ -505,7 +505,7 @@
                             <div class="text-right">
                                 <span class="price-label">Người giữ giá cao nhất:</span>
                                 <div id="highest-bidder-display" class="highest-bidder-info font-bold mt-1">
-                                    <%= auction.getHighestBidderName() %>
+                                    <%= FormatUtil.maskName(auction.getHighestBidderName()) %>
                                 </div>
                             </div>
                         </div>

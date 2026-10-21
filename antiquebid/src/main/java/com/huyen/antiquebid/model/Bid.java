@@ -94,7 +94,6 @@ public class Bid implements Serializable {
     }
 
     public String getMaskedBidderName() {
-        if (bidderName == null || bidderName.length() < 3) return "Nhà sưu tầm ***";
-        return bidderName.substring(0, 2) + "***" + bidderName.substring(bidderName.length() - 1);
+        return com.huyen.antiquebid.util.FormatUtil.maskName(bidderName);
     }
 }

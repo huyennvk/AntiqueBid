@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!data.success) return;
 
                 if (currentPriceElement) currentPriceElement.innerText = data.currentHighestBidFormatted;
-                if (leaderNameElement) leaderNameElement.innerText = data.highestBidderName;
+                if (leaderNameElement) leaderNameElement.innerText = maskName(data.highestBidderName);
                 if (nextMinPriceElement) nextMinPriceElement.innerText = data.nextMinimumBidFormatted;
                 if (customBidInput && !customBidInput.matches(":focus")) {
                     customBidInput.value = data.nextMinimumBid.toLocaleString("vi-VN");
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         const tr = document.createElement("tr");
                         if (idx === 0) tr.className = "highest-bid-row";
                         const formatPrice = Number(b.bidAmount).toLocaleString("vi-VN") + " ₫";
-                        const maskedName = b.bidderName ? (b.bidderName.substring(0, 2) + "***" + b.bidderName.substring(b.bidderName.length - 1)) : "Nhà sưu tầm ***";
+                        const maskedName = maskName(b.bidderName);
 
                         tr.innerHTML = `
                             <td>${idx + 1}</td>
@@ -127,6 +127,19 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(() => {});
     }
+
+    function maskName(name) {
+        if (!name || name === "Chưa có lượt trả giá") return "Chưa có lượt trả giá";
+        const trimmed = name.trim();
+        if (trimmed.includes("****")) return trimmed;
+        const parts = trimmed.split(/\s+/);
+        return parts.map(p => {
+            if (p.length <= 1) return p + "****";
+            if (p.length === 2) return p.charAt(0) + "****";
+            return p.charAt(0) + "****" + p.charAt(p.length - 1);
+        }).join(" ");
+    }
+
     setInterval(pollStatus, 3000);
 
     function showToast(msg, type) {

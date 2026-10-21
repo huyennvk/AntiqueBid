@@ -111,10 +111,15 @@ public class AuctionRoomServlet extends HttpServlet {
                 Auction auction = auctionDAO.getAuctionById(auctionId);
                 if (auction != null) {
                     List<Bid> bids = auctionDAO.getBidsByAuctionId(auctionId);
+                    if (bids != null) {
+                        for (Bid b : bids) {
+                            b.setBidderName(FormatUtil.maskName(b.getBidderName()));
+                        }
+                    }
                     result.put("success", true);
                     result.put("currentHighestBid", auction.getCurrentHighestBid());
                     result.put("currentHighestBidFormatted", FormatUtil.formatVND(auction.getCurrentHighestBid()));
-                    result.put("highestBidderName", auction.getHighestBidderName());
+                    result.put("highestBidderName", FormatUtil.maskName(auction.getHighestBidderName()));
                     result.put("nextMinimumBid", auction.getNextMinimumBid());
                     result.put("nextMinimumBidFormatted", FormatUtil.formatVND(auction.getNextMinimumBid()));
                     result.put("remainingSeconds", auction.getRemainingSeconds());

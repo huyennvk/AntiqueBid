@@ -58,4 +58,35 @@ public class FormatUtil {
         }
         return String.format("%02d:%02d:%02d", hours, minutes, secs);
     }
+
+    /**
+     * Che giấu thông tin danh tính người tham gia đấu giá (Ví dụ: "Huyền Nguyễn" -> "H****n N****n")
+     * Đảm bảo tính bảo mật, ẩn danh và chống lộ danh tính người trả giá trên sàn.
+     */
+    public static String maskName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return "Chưa có lượt trả giá";
+        }
+        String trimmed = name.trim();
+        if ("Chưa có lượt trả giá".equalsIgnoreCase(trimmed) || "Chưa có".equalsIgnoreCase(trimmed)) {
+            return trimmed;
+        }
+        String[] parts = trimmed.split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            String p = parts[i];
+            if (p.length() <= 1) {
+                sb.append(p).append("****");
+            } else if (p.length() == 2) {
+                sb.append(p.charAt(0)).append("****");
+            } else {
+                sb.append(p.charAt(0)).append("****").append(p.charAt(p.length() - 1));
+            }
+            if (i < parts.length - 1) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
 }
+

@@ -239,6 +239,10 @@ public class Auction implements Serializable {
         return highestBidderName != null ? highestBidderName : "Chưa có lượt trả giá";
     }
 
+    public String getMaskedHighestBidderName() {
+        return com.huyen.antiquebid.util.FormatUtil.maskName(highestBidderName);
+    }
+
     public void setHighestBidderName(String highestBidderName) {
         this.highestBidderName = highestBidderName;
     }
