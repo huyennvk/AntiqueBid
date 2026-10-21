@@ -1,0 +1,77 @@
+/* ==========================================================================
+   SHIPMENT_TRACKING.CSS - Theo dõi hành trình vận chuyển bảo lãnh hoàng gia
+   Tương ứng: shipment_tracking.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+.tracking-container {
+    padding-top: 36px;
+    padding-bottom: 60px;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0 20px 32px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 28px;
+    bottom: 28px;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-step {
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.timeline-step:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -32px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 2px #94a3b8;
+}
+
+.timeline-step.active .timeline-dot {
+    background: #10b981;
+    box-shadow: 0 0 0 2px #10b981;
+}
+
+.timeline-step.current .timeline-dot {
+    background: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+    animation: pulse 1.5s infinite;
+}
+
+.timeline-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.timeline-time {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.timeline-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}

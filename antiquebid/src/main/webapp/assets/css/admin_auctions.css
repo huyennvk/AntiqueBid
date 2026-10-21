@@ -1,0 +1,13 @@
+/* ==========================================================================
+   ADMIN_AUCTIONS.CSS - Quản lý phiên đấu giá cổ vật
+   Tương ứng: admin/auctions.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+@import url('admin.css');
+
+.admin-filter-pills {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}

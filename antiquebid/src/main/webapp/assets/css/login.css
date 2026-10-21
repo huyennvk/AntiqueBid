@@ -1,0 +1,94 @@
+/* ==========================================================================
+   LOGIN.CSS - Màn hình đăng nhập hệ thống Cổ Vật Đường
+   Tương ứng: login.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+.auth-wrapper {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 16px;
+    background: var(--bg-main);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 40px 36px;
+    background: #ffffff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.auth-logo-img {
+    margin: 0 auto 14px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    filter: drop-shadow(0 4px 14px rgba(184, 134, 11, 0.45));
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.auth-logo-img:hover {
+    transform: scale(1.08) rotate(4deg);
+}
+
+.auth-logo-seal {
+    margin: 0 auto 14px;
+    width: 58px;
+    height: 58px;
+    font-size: 26px;
+}
+
+.auth-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-family: var(--font-heading);
+}
+
+.auth-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.auth-form-footer {
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.auth-form-footer a {
+    color: var(--gold-hover);
+    font-weight: 700;
+}
+
+.demo-credentials-box {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: var(--surface-alt);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border: 1px dashed var(--border-gold);
+}
+
+.demo-credentials-title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+}

@@ -1,0 +1,11 @@
+/* ==========================================================================
+   ADMIN_USERS.CSS - Quản trị tài khoản người dùng & Khóa tài khoản
+   Tương ứng: admin/users.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+@import url('admin.css');
+
+.admin-table-card {
+    margin-top: 10px;
+}

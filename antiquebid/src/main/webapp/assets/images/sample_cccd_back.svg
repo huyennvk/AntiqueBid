@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 540" width="856" height="540">
+  <defs>
+    <linearGradient id="cardBgBack" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eaf2f8"/>
+      <stop offset="50%" stop-color="#d9ecf5"/>
+      <stop offset="100%" stop-color="#f5efe0"/>
+    </linearGradient>
+    <linearGradient id="goldChipLarge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1a8"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#997000"/>
+    </linearGradient>
+    <pattern id="guillocheBack" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 0 18 Q 9 0 18 18 T 36 18" fill="none" stroke="#b4d7e8" stroke-width="0.7" opacity="0.4"/>
+      <path d="M 18 0 Q 27 18 36 0" fill="none" stroke="#d5c8a3" stroke-width="0.7" opacity="0.4"/>
+    </pattern>
+    <filter id="shadowBack" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Card Base -->
+  <rect x="10" y="10" width="836" height="520" rx="24" fill="url(#cardBgBack)" stroke="#8cb8cc" stroke-width="2" filter="url(#shadowBack)"/>
+  <rect x="10" y="10" width="836" height="520" rx="24" fill="url(#guillocheBack)"/>
+
+  <!-- Top Electronic Chip Contact Module on Back -->
+  <g transform="translate(680, 50)">
+    <rect x="0" y="0" width="110" height="90" rx="10" fill="url(#goldChipLarge)" stroke="#7a5803" stroke-width="2"/>
+    <line x1="0" y1="45" x2="110" y2="45" stroke="#7a5803" stroke-width="1.8"/>
+    <line x1="55" y1="0" x2="55" y2="90" stroke="#7a5803" stroke-width="1.8"/>
+    <circle cx="55" cy="45" r="24" fill="none" stroke="#7a5803" stroke-width="1.8"/>
+    <text x="55" y="112" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#7a5803" text-anchor="middle">CHIP ĐIỆN TỬ</text>
+  </g>
+
+  <!-- Personal Characteristics (Left Box) -->
+  <g transform="translate(50, 45)">
+    <text x="0" y="20" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b3b5a">Đặc điểm nhận dạng / <tspan font-style="italic" font-weight="400" font-size="12">Personal identification:</tspan></text>
+    <text x="0" y="48" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="15" font-weight="600" fill="#222">Nốt ruồi cách 1cm dưới sau đuôi mắt phải</text>
+    <line x1="0" y1="65" x2="520" y2="65" stroke="#cadde6" stroke-width="1.5"/>
+
+    <!-- Date of issue -->
+    <text x="0" y="105" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="14" font-weight="700" fill="#1b3b5a">Ngày, tháng, năm / <tspan font-style="italic" font-weight="400" font-size="12">Date, month, year:</tspan></text>
+    <text x="240" y="105" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="16" font-weight="800" fill="#a01813">10/05/2021</text>
+
+    <!-- Authority Header -->
+    <text x="340" y="150" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" font-weight="700" fill="#1b3b5a" text-anchor="middle">CỤC TRƯỞNG CỤC CẢNH SÁT QUẢN LÝ HÀNH CHÍNH</text>
+    <text x="340" y="170" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" font-weight="700" fill="#1b3b5a" text-anchor="middle">VỀ TRẬT TỰ XÃ HỘI</text>
+    <text x="340" y="188" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="11" font-style="italic" fill="#555" text-anchor="middle">DIRECTOR GENERAL OF THE POLICE DEPARTMENT FOR ADMINISTRATIVE MANAGEMENT OF SOCIAL ORDER</text>
+  </g>
+
+  <!-- Red Round Official Police Stamp -->
+  <g transform="translate(240, 260)">
+    <circle cx="65" cy="65" r="58" fill="none" stroke="#d32f2f" stroke-width="2.5" opacity="0.85"/>
+    <circle cx="65" cy="65" r="50" fill="none" stroke="#d32f2f" stroke-width="1.2" opacity="0.85"/>
+    <polygon points="65,30 68,40 78,40 70,46 73,56 65,50 57,56 60,46 52,40 62,40" fill="#d32f2f" opacity="0.85"/>
+    <text x="65" y="74" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="800" fill="#d32f2f" text-anchor="middle" opacity="0.85">CỤC CẢNH SÁT QLHC VỀ TTXH</text>
+    <text x="65" y="86" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="700" fill="#d32f2f" text-anchor="middle" opacity="0.85">★ BỘ CÔNG AN ★</text>
+  </g>
+
+  <!-- Signature -->
+  <g transform="translate(420, 280)">
+    <path d="M 0 35 Q 25 5, 50 40 T 90 20 T 130 50" fill="none" stroke="#0d3b66" stroke-width="2.2" stroke-linecap="round"/>
+    <text x="65" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#1b3b5a" text-anchor="middle">Trung tướng Tô Văn Huệ</text>
+  </g>
+
+  <!-- Machine Readable Zone (MRZ) - 3 Lines -->
+  <rect x="30" y="380" width="796" height="130" rx="8" fill="#f8fafc" stroke="#cfdce5" stroke-width="1.5"/>
+  <text x="50" y="420" font-family="'Courier New', monospace" font-size="22" font-weight="700" fill="#1e293b" letter-spacing="4">IDVNM001202000017&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</text>
+  <text x="50" y="455" font-family="'Courier New', monospace" font-size="22" font-weight="700" fill="#1e293b" letter-spacing="4">9008151M5008154VNM&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;0</text>
+  <text x="50" y="490" font-family="'Courier New', monospace" font-size="22" font-weight="700" fill="#1e293b" letter-spacing="4">DINH&lt;&lt;VAN&lt;HUNG&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</text>
+</svg>

@@ -1,0 +1,107 @@
+/* ==========================================================================
+   ORDERS.CSS - Quản lý đơn hàng trúng đấu giá của tôi
+   Tương ứng: orders.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+.user-page-container {
+    padding-top: 36px;
+    padding-bottom: 60px;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.user-page-header {
+    margin-bottom: 24px;
+}
+
+.user-page-title {
+    font-size: 26px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--primary);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+}
+
+.user-page-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.user-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 24px;
+}
+
+.user-empty-state {
+    padding: 56px 24px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.user-empty-icon {
+    font-size: 44px;
+    margin-bottom: 14px;
+    color: var(--gold);
+    line-height: 1;
+}
+
+.user-empty-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.user-empty-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 420px;
+    margin: 0 auto 20px auto;
+    line-height: 1.6;
+}
+
+.user-item-cell {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.user-thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    background: var(--primary-dark);
+    border: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+}
+
+.user-item-title {
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.user-item-title:hover {
+    color: var(--gold);
+}
+
+.table-action-group {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.text-muted-sm {
+    font-size: 12px;
+    color: var(--text-muted);
+}

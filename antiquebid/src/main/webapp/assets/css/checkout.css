@@ -1,0 +1,124 @@
+/* ==========================================================================
+   CHECKOUT.CSS - Màn hình xác nhận thanh toán bảo lãnh
+   Tương ứng: checkout.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+.user-page-container {
+    padding-top: 36px;
+    padding-bottom: 60px;
+}
+
+.user-page-container.medium {
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.user-page-header {
+    margin-bottom: 24px;
+}
+
+.user-page-title {
+    font-size: 26px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--primary);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+}
+
+.user-page-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--gold-hover);
+    transform: translateX(-3px);
+}
+
+.user-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 24px;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 28px;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.checkout-thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    background: var(--primary-dark);
+}
+
+.checkout-card-header {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    color: var(--primary);
+    font-family: var(--font-heading);
+}
+
+.checkout-method-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.checkout-method-card:hover {
+    border-color: var(--gold);
+    background: var(--gold-lighter);
+}
+
+.checkout-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.checkout-total-row {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid var(--border);
+    margin-top: 14px;
+    padding-top: 14px;
+    font-size: 16px;
+    font-weight: 700;
+}

@@ -1,0 +1,99 @@
+/* ==========================================================================
+   PAYMENT_GATEWAY.CSS - Cổng thanh toán giả lập bảo mật MockPay Sandbox
+   Tương ứng: payment_gateway.jsp
+   Thiết kế: Light Elegant kết hợp Fintech Sandbox
+   ========================================================================== */
+
+.mockpay-wrapper {
+    background: #f1f5f9;
+    min-height: 100vh;
+    padding: 40px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mockpay-container {
+    width: 100%;
+    max-width: 540px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.mockpay-header {
+    background: linear-gradient(135deg, #241a13 0%, #3d2b1f 100%);
+    color: #ffffff;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--gold);
+}
+
+.mockpay-logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+}
+
+.mockpay-sandbox-tag {
+    background: #fef08a;
+    color: #854d0e;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+}
+
+.mockpay-body {
+    padding: 28px 24px;
+}
+
+.mockpay-amount-box {
+    background: var(--surface-alt);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.mockpay-amount-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.mockpay-amount-val {
+    font-size: 30px;
+    font-weight: 800;
+    color: #b91c1c;
+    font-family: var(--font-heading);
+    margin-top: 4px;
+}
+
+.mockpay-info-table {
+    width: 100%;
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+.mockpay-info-table td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.mockpay-info-table td:last-child {
+    text-align: right;
+    font-weight: 600;
+}

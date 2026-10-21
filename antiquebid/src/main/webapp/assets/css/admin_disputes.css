@@ -1,0 +1,15 @@
+/* ==========================================================================
+   ADMIN_DISPUTES.CSS - Xử lý khiếu nại & hoàn tiền
+   Tương ứng: admin/disputes.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+@import url('admin.css');
+
+.admin-summary-box {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 24px;
+}

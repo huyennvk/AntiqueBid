@@ -1,0 +1,651 @@
+/* ==========================================================================
+   HEADER.CSS - Thanh điều hướng & Header hệ thống Cổ Vật Đường
+   Tương ứng: WEB-INF/header.jsp
+   Phong cách: Light Elegant (Vàng sáng, Nâu cổ điển, Nền men ngà)
+   ========================================================================== */
+
+/* 1. Header & Navbar Cơ Bản */
+header {
+    width: 100%;
+}
+
+.navbar {
+    background: rgba(255, 253, 250, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--text-main);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 4px 20px rgba(61, 43, 31, 0.06);
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 66px;
+    gap: 14px;
+}
+
+/* 2. Thương Hiệu & Logo AntiqueBid */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.brand-logo-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    filter: drop-shadow(0 2px 8px rgba(184, 134, 11, 0.4));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+    flex-shrink: 0;
+    display: block;
+}
+
+.nav-brand:hover .brand-logo-img {
+    transform: scale(1.08) rotate(4deg);
+    filter: drop-shadow(0 4px 14px rgba(203, 161, 53, 0.6));
+}
+
+.brand-logo-seal {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #e0b653 0%, #cba135 50%, #a67c1e 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 17px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 10px var(--gold-glow);
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.nav-brand:hover .brand-logo-seal {
+    transform: scale(1.06) rotate(6deg);
+}
+
+.brand-text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-size: 20px;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    color: var(--primary);
+    line-height: 1.15;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: color 0.25s ease;
+}
+
+.nav-brand:hover .brand-title {
+    color: var(--gold-dark);
+}
+
+.brand-subtitle {
+    font-size: 9.5px;
+    color: var(--gold-hover);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-family: var(--font-body);
+    font-weight: 700;
+    white-space: nowrap;
+    margin-top: 1px;
+}
+
+/* 3. Danh Sách Menu Điều Hướng Trung Tâm (Chuẩn Sàn Đấu Giá) */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.nav-link-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-main);
+    font-size: 14.5px;
+    font-weight: 600;
+    padding: 8px 2px;
+    text-decoration: none;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.nav-link-item:hover,
+.nav-link-item.active {
+    color: var(--gold-dark);
+}
+
+.nav-link-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2.5px;
+    background: var(--gold);
+    border-radius: 2px;
+}
+
+.nav-chevron {
+    color: var(--gold-dark);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 2px;
+    flex-shrink: 0;
+}
+
+/* Dropdown Menu Đa Cấp Cho Header (Tài sản & Phiên đấu giá) */
+.nav-item-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-item-dropdown:hover .nav-chevron,
+.nav-item-dropdown.open .nav-chevron {
+    transform: rotate(180deg);
+}
+
+.nav-item-dropdown:hover .nav-menu-sub,
+.nav-item-dropdown.open .nav-menu-sub {
+    display: block;
+}
+
+.nav-item-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 12px;
+}
+
+.nav-menu-sub {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 250px;
+    background: #ffffff;
+    border: 1px solid #ebd9c8;
+    border-radius: 10px;
+    box-shadow: 0 12px 36px rgba(44, 24, 16, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04);
+    padding: 6px 0;
+    display: none;
+    z-index: 1000;
+    animation: dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-live-dot {
+    width: 7px;
+    height: 7px;
+    background: #dc2626;
+    border-radius: 50%;
+    display: inline-block;
+    animation: livePulseDot 1.5s infinite ease-in-out;
+    flex-shrink: 0;
+}
+
+@keyframes livePulseDot {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    50% { transform: scale(1.25); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+/* 4. Khu Vực Tiện Ích Bên Phải (Quốc Kỳ, Đồng Hồ 2 Dòng, Tìm Kiếm, Đăng Nhập) */
+.nav-right-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+/* Quốc Kỳ / Ngôn Ngữ VI */
+.nav-lang-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    background: #faf7f2;
+    border: 1px solid #ebd9c8;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: default;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.nav-lang-badge:hover {
+    border-color: var(--gold);
+    background: #ffffff;
+}
+
+.nav-lang-badge .flag-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.nav-lang-badge .lang-text {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Đồng Hồ Sàn Đấu Giá 2 Dòng (Giờ:Phút:Giây & Thứ, Ngày/Tháng/Năm) */
+.nav-clock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    line-height: 1.25;
+    padding: 2px 4px;
+    cursor: default;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.nav-clock:hover .nav-clock-time {
+    color: var(--gold-dark);
+}
+
+.nav-clock-time {
+    font-size: 15.5px;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', monospace;
+    font-variant-numeric: tabular-nums;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+.nav-clock-date {
+    font-size: 11px;
+    font-weight: 500;
+    color: #7d6753;
+    white-space: nowrap;
+    margin-top: 1px;
+    font-family: var(--font-body);
+}
+
+/* 5. Thanh Tìm Kiếm Dài Bên Trái (Long Search Bar phong cách AntiqueBid) */
+.nav-search-bar-wrap {
+    flex: 1;
+    max-width: 440px;
+    min-width: 220px;
+    margin: 0 16px 0 20px;
+}
+
+.nav-search-bar-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: #ffffff;
+    border: 1.5px solid #dfd5c8;
+    border-radius: 22px;
+    padding: 0 5px 0 16px;
+    transition: all 0.25s ease;
+    box-shadow: 0 1px 4px rgba(61, 43, 31, 0.04);
+    box-sizing: border-box;
+}
+
+.nav-search-bar-form:focus-within {
+    border-color: var(--gold, #cba135);
+    box-shadow: 0 0 0 3px rgba(203, 161, 53, 0.2), 0 2px 8px rgba(61, 43, 31, 0.06);
+    background: #ffffff;
+}
+
+.nav-search-bar-input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 13.5px;
+    font-family: var(--font-body);
+    color: var(--text-main);
+    background: transparent;
+    padding: 0;
+}
+
+.nav-search-bar-input::placeholder {
+    color: #9c8979;
+    font-size: 13px;
+}
+
+.nav-search-bar-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #8c735d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.nav-search-bar-btn:hover,
+.nav-search-bar-form:focus-within .nav-search-bar-btn {
+    background: var(--gold, #cba135);
+    color: #ffffff;
+}
+
+/* Nút Đăng Nhập & Đăng Ký Chuẩn Sàn */
+.btn-header-login {
+    background: linear-gradient(135deg, #cba135 0%, #a67c1e 100%);
+    color: #ffffff !important;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(184, 134, 11, 0.25);
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    font-size: 13.5px;
+    white-space: nowrap;
+}
+
+.btn-header-login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(184, 134, 11, 0.4);
+}
+
+.btn-header-reg {
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* 6. Khu Vực Người Dùng / Tài Khoản Dropdown */
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.nav-user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-user-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: #fffcf7;
+    border: 1.5px solid var(--gold);
+    border-radius: 8px;
+    color: var(--primary);
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(184, 134, 11, 0.08);
+}
+
+.nav-user-trigger:hover,
+.nav-user-dropdown.open .nav-user-trigger {
+    background: #fdf5eb;
+    border-color: var(--gold-hover);
+    box-shadow: 0 4px 14px rgba(184, 134, 11, 0.16);
+}
+
+.nav-user-greeting {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.nav-user-greeting strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.dropdown-chevron {
+    color: var(--gold-dark);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: 2px;
+    flex-shrink: 0;
+}
+
+.nav-user-dropdown:hover .dropdown-chevron,
+.nav-user-dropdown.open .dropdown-chevron {
+    transform: rotate(180deg);
+}
+
+/* Vùng đệm để chuột di chuyển mượt từ button xuống menu mà không bị ngắt hover */
+.nav-user-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    height: 12px;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 235px;
+    background: #ffffff;
+    border: 1px solid #ebd9c8;
+    border-radius: 10px;
+    box-shadow: 0 12px 36px rgba(44, 24, 16, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04);
+    padding: 6px 0;
+    display: none;
+    z-index: 1000;
+    animation: dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-user-dropdown:hover .nav-dropdown-menu,
+.nav-user-dropdown.open .nav-dropdown-menu {
+    display: block;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-user-header {
+    padding: 10px 16px 8px;
+    background: #faf7f2;
+    border-bottom: 1px solid #ebd9c8;
+    margin-bottom: 4px;
+}
+
+.dropdown-user-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-user-email {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #f0e6dc;
+    margin: 4px 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    color: #594e43;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background: #fbf5ee;
+    color: #111111;
+    font-weight: 600;
+}
+
+.dropdown-item-icon {
+    font-size: 15px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-item-admin {
+    font-weight: 600;
+    color: var(--gold-dark);
+}
+
+.dropdown-item-logout {
+    color: #b91c1c;
+}
+
+.dropdown-item-logout:hover {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.nav-user .btn {
+    padding: 7px 15px;
+    font-size: 12.5px;
+    white-space: nowrap;
+}
+
+/* 7. Trạng Thái Cảnh Báo Cho Đồng Hồ Đếm Ngược (Countdown Utilities) */
+.countdown-urgent {
+    color: #dc2626 !important;
+    animation: countdownPulse 1s infinite alternate ease-in-out;
+}
+
+@keyframes countdownPulse {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.7; transform: scale(1.02); }
+}
+
+.countdown-ended {
+    color: #786556 !important;
+    text-decoration: none;
+}
+
+/* 8. Responsive Header & Navigation */
+@media (max-width: 1200px) {
+    .nav-links {
+        gap: 14px;
+    }
+    .nav-link-item {
+        font-size: 13.5px;
+    }
+    .nav-clock-time {
+        font-size: 14px;
+    }
+    .nav-clock-date {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-lang-badge {
+        display: none;
+    }
+    .nav-search-bar-wrap {
+        max-width: 280px;
+        margin: 0 8px;
+    }
+    .nav-links {
+        gap: 12px;
+    }
+    .nav-link-item {
+        font-size: 13px;
+    }
+    .nav-clock {
+        padding: 0 2px;
+    }
+    .nav-clock-time {
+        font-size: 13.5px;
+    }
+    .nav-right-actions {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-content {
+        flex-wrap: wrap;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        min-height: auto;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .nav-search-bar-wrap {
+        order: 4;
+        width: 100%;
+        max-width: 100%;
+        margin: 4px 0 0;
+    }
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        border-top: 1px solid #ebd9c8;
+        padding-top: 8px;
+        gap: 10px;
+    }
+    .nav-right-actions {
+        order: 2;
+        gap: 8px;
+    }
+}

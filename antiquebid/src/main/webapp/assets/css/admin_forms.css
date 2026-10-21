@@ -1,0 +1,33 @@
+/* ==========================================================================
+   ADMIN_FORMS.CSS - Biểu mẫu thêm/sửa quản trị Cổ Vật Đường
+   Tương ứng: item_form.jsp, auction_form.jsp, shipment_form.jsp, appraisal_form.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+@import url('admin.css');
+
+.admin-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.admin-form-container.narrow {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.admin-form-card {
+    background: #ffffff;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-summary-box {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 24px;
+}

@@ -1,0 +1,606 @@
+﻿TÀI LIỆU TỔNG HỢP BIỂU ĐỒ TỔNG QUÁT & BẢNG CHUẨN HÓA TOÀN HỆ THỐNG
+SÀN ĐẤU GIÁ ĐỒ CỔ TRỰC TUYẾN (23 USE CASE – 18 LỚP THỰC THỂ – 18 BẢNG CSDL)
+Mục đích tài liệu: Tài liệu này tổng hợp đầy đủ các biểu đồ tổng quát (System-wide Diagrams) và bảng đối chiếu chuẩn hóa xuyên suốt 5 chương của đồ án Thiết kế hệ thống thông tin quản lý sàn đấu giá đồ cổ trực tuyến (23 Use Case: 15 UC lõi, 8 UC mở rộng), giúp cả 5 thành viên (P1, P2, P3, P4, P5) thống nhất tên lớp, chữ ký phương thức, trạng thái Enum, mã quy tắc nghiệp vụ (BR01–BR29) và lược đồ CSDL (18 bảng theo Phương án 2).
+CHƯƠNG 1. QUY TRÌNH NGHIỆP VỤ TỔNG THỂ VÀ HỆ THỐNG QUY TẮC NGHIỆP VỤ (BR01 – BR29)
+1.1. Biểu đồ Hoạt động (Activity Diagram) Quy trình nghiệp vụ tổng thể 8 bước
+Quy trình nghiệp vụ toàn hệ thống từ lúc đăng ký/xác minh danh tính (KYC), nhập kho và giám định cổ vật, mở phiên đấu giá trả giá lên (English Auction), đóng phiên tự động sinh đơn hàng, thanh toán, vận chuyển đến khi xử lý khiếu nại hoặc tự động hoàn tất đơn hàng được mô hình hóa trên 4 làn bơi (Swimlanes) theo tác nhân ở Hình 1.1:
+  
+
+Hình 1.1. Biểu đồ Hoạt động (Activity Diagram) quy trình nghiệp vụ tổng thể 8 bước có Swimlane theo tác nhân
+1.2. Bảng chuẩn hóa toàn bộ Mã Quy tắc Nghiệp vụ (BR01 – BR29) không trùng lặp
+Để giải quyết triệt để hiện tượng trùng mã BR16–BR17 giữa P3 (Đóng phiên) và P4 (Đặt giá), bảng dưới đây chuẩn hóa lại thứ tự BR01–BR29 cho toàn bộ 5 phân hệ (trong đó nhóm quy tắc đặt giá của P4 được gom gọn vào BR13–BR15 đúng như khung tham chiếu của P3, nhường BR16–BR17 cho quy tắc đóng phiên và khởi tạo đơn hàng của P3):
+Mã BR
+	Phân hệ
+	Tên quy tắc
+	Nội dung chuẩn hóa toàn hệ thống
+	BR01
+	P1, P3, P4
+	Tách biệt vai trò Admin
+	Admin là chủ sàn kiêm người bán duy nhất; Admin tuyệt đối không được tham gia đặt giá dưới mọi hình thức.
+	BR02
+	P1
+	Xác thực tài khoản
+	Email đăng ký phải duy nhất; mật khẩu được băm bảo mật (bcrypt); tài khoản bị khóa (isLocked = true) không thể đăng nhập hoặc giao dịch.
+	BR03
+	P1, P4
+	Điều kiện xác minh KYC
+	Khách đấu giá (Bidder) phải nộp giấy tờ tùy thân (VerificationDocument) và được Admin duyệt (kycStatus = VERIFIED) mới được phép đặt giá.
+	BR04
+	P1, P5
+	Ngưỡng vi phạm & Khóa quyền
+	Mỗi lần để đơn thắng phiên quá hạn thanh toán, violationCount tăng 1; khi violationCount >= 3 thì tự động khóa quyền đấu giá của Bidder.
+	BR05
+	P2
+	Hồ sơ hiện vật & Danh mục
+	Tên 1–200 ký tự, mô tả <= 2000 ký tự, eraFrom <= eraTo; 1–5 ảnh JPG/PNG <= 5MB (đúng 1 ảnh đại diện); bắt buộc có xuất xứ & nguồn thu nhận; thuộc 1 danh mục đang hoạt động.
+	BR06
+	P2
+	Giám định & Chứng thư
+	Bản ghi giám định chỉ thêm (bất biến); kết quả PASSED sinh chứng thư VALID duy nhất; sửa trường định danh của hiện vật đã giám định sẽ thu hồi chứng thư (REVOKED) và đưa về DRAFT.
+	BR07
+	P2, P3
+	Niêm yết & Vòng đời hiện vật
+	Chỉ hiện vật APPRAISED_PASSED có chứng thư VALID mới được niêm yết (AVAILABLE); chỉ hiện vật AVAILABLE mới được tạo phiên; mỗi phiên đấu giá đúng 1 hiện vật độc bản.
+	BR08
+	P3
+	Khung thời gian phiên đấu giá
+	Thời gian kết thúc phải lớn hơn thời gian bắt đầu (endTime > startTime), tính theo đồng hồ chuẩn của Application Server.
+	BR09
+	P3
+	Cấu hình giá phiên đấu giá
+	Giá sàn lớn hơn hoặc bằng giá khởi điểm (reservePrice >= startingPrice > 0) và bước giá tối thiểu dương (minBidIncrement > 0); giá sàn không hiển thị công khai.
+	BR10
+	P3
+	Điều kiện sửa thông tin phiên
+	Admin chỉ được phép sửa thông tin phiên đấu giá khi phiên đang ở trạng thái DRAFT hoặc SCHEDULED (trước khi mở phiên).
+	BR11
+	P3
+	Điều kiện hủy phiên đấu giá
+	Chỉ hủy phiên thường khi chưa có lượt đặt giá hợp lệ; nếu hủy bất khả kháng khi đang ACTIVE và đã có bid thì bắt buộc nhập lý do, ghi AuditLog và gửi Notification cho các Bidder đã đặt giá.
+	BR12
+	P2, P3
+	Một phiên sống mỗi hiện vật
+	Tại một thời điểm, mỗi hiện vật chỉ có tối đa một phiên đấu giá chưa kết thúc (ở trạng thái DRAFT, SCHEDULED hoặc ACTIVE).
+	BR13
+	P4, P3
+	Điều kiện tư cách & Mức giá đặt tối thiểu
+	Chỉ Bidder VERIFIED, không bị khóa và đang trong khung giờ ACTIVE (startTime <= bidTime < endTime) mới đặt giá được. Lượt đầu >= startingPrice; lượt sau >= currentHighestBid + minBidIncrement.
+	BR14
+	P4, P3
+	Chống người dẫn đầu tự nâng giá
+	Bidder đang nắm giữ mức giá cao nhất hiện tại (highestBidder) không được phép đặt mức giá mới đè lên giá của chính mình cho đến khi có Bidder khác vượt qua.
+	BR15
+	P4, P3
+	Xử lý đặt giá đồng thời & Thông báo Outbid
+	Hai yêu cầu đặt cùng mức giá tại cùng thời điểm được xử lý tuần tự qua khóa bản ghi Auction (SELECT ... FOR UPDATE) và UNIQUE(auction_id, bid_amount): yêu cầu ghi trước hợp lệ; phát Notification OUTBID cho người bị vượt giá.
+	BR16
+	P3, P5
+	Đóng phiên thắng & Khởi tạo Order
+	Khi đóng phiên (now >= endTime), nếu có lượt trả giá hợp lệ và currentHighestBid >= reservePrice thì chuyển phiên sang ENDED_SOLD, chốt hammerPrice và tự động tạo Order PENDING_PAYMENT (totalAmount = hammerPrice + buyersPremium + shippingFee), hiện vật sang RESERVED_PENDING_PAYMENT.
+	BR17
+	P3, P2
+	Đóng phiên không có người thắng
+	Khi đóng phiên, nếu không có lượt đặt giá nào (ENDED_NO_BIDS) hoặc giá cao nhất thấp hơn giá sàn (ENDED_RESERVE_NOT_MET) thì không tạo Order và chuyển hiện vật về lại AVAILABLE.
+	BR18
+	P5
+	Cơ cấu tổng tiền đơn hàng
+	Đơn hàng sinh tự động từ phiên ENDED_SOLD (quan hệ 1–0..1 qua auction_id UNIQUE); tổng tiền thanh toán một lần gồm Giá búa (hammerPrice) + Phí người mua (buyersPremium) + Phí vận chuyển (shippingFee).
+	BR19
+	P5
+	Thời hạn thanh toán đơn hàng
+	Đơn hàng ở trạng thái PENDING_PAYMENT có hạn thanh toán paymentDeadline = closedAt + X giờ (mặc định 48 giờ theo quy định sàn; cấu hình 1–2 phút khi chạy demo).
+	BR20
+	P5, P1
+	Xử lý quá hạn thanh toán
+	Nếu quá paymentDeadline mà đơn chưa PAID, SystemScheduler chuyển đơn sang CANCELLED_OVERDUE, tăng violationCount của Bidder thêm 1 (khóa quyền nếu chạm 3) và ghi AuditLog.
+	BR21
+	P5, P2
+	Giải phóng hiện vật khi bùng đơn
+	Khi đơn hàng chuyển sang CANCELLED_OVERDUE, hệ thống giải phóng hiện vật về trạng thái AVAILABLE (chứng thư vẫn giữ VALID) để Admin tạo phiên mới; không mở lại phiên cũ.
+	BR22
+	P5
+	Điều kiện đóng gói & Tạo vận đơn
+	Admin chỉ được phép nhập thông tin đóng gói, bảo hiểm và tạo vận đơn (Shipment) khi đơn hàng đã ở trạng thái PAID.
+	BR23
+	P5
+	Thời hạn gửi khiếu nại
+	Bidder chỉ được gửi khiếu nại (Dispute) kèm bằng chứng trong vòng Y ngày kể từ thời điểm vận đơn báo Đã giao hàng (deliveredAt) và khi đơn chưa có khiếu nại mở.
+	BR24
+	P5, P2
+	Duyệt khiếu nại & Hoàn tiền
+	Khi Admin chấp thuận khiếu nại (ACCEPTED), hệ thống gọi cổng thanh toán thực hiện giao dịch REFUND gắn với originalPaymentId, chuyển đơn sang REFUNDED và trả hiện vật về AVAILABLE.
+	BR25
+	P5, P2
+	Tự động hoàn tất đơn hàng
+	Sau Y ngày kể từ deliveredAt mà không có khiếu nại hợp lệ (hoặc khiếu nại bị từ chối REJECTED), hệ thống chuyển đơn sang COMPLETED và cập nhật hiện vật sang SOLD_DELIVERED.
+	BR26
+	P4
+	Quy tắc ẩn danh lịch sử trả giá
+	Trên giao diện công khai (AuctionRoomView), danh tính của các Bidder trong bảng lịch sử trả giá phải được che ký tự ở giữa (ví dụ: ng***an) để bảo vệ quyền riêng tư.
+	BR27
+	P4
+	Quy tắc danh sách theo dõi (Watchlist)
+	Mỗi Bidder sở hữu duy nhất 1 Watchlist cá nhân (1:1); mỗi phiên đấu giá chỉ xuất hiện tối đa 1 lần trong Watchlist của một Bidder (UNIQUE watchlist_id, auction_id).
+	BR28
+	P1–P5
+	Ghi nhật ký thao tác nhạy cảm
+	Mọi thao tác nhạy cảm của Admin và hệ thống (duyệt KYC, khóa tài khoản, thêm/sửa/niêm yết/xóa/lưu trữ hiện vật, giám định/thu hồi chứng thư, mở/đóng/hủy phiên, hủy đơn quá hạn, duyệt hoàn tiền) bắt buộc sinh bản ghi AuditLog trong cùng transaction.
+	BR29
+	P1, P2
+	Tính bất biến của Nhật ký hệ thống
+	Bảng nhật ký hệ thống (AuditLog / audit_logs) chỉ cho phép thêm mới (INSERT) và truy vấn (SELECT), tuyệt đối chặn sửa (UPDATE) hoặc xóa (DELETE) bằng Trigger CSDL.
+	 
+CHƯƠNG 2. BIỂU ĐỒ PHÂN RÃ CHỨC NĂNG (BFD) & MÔ HÌNH 23 USE CASE TOÀN HỆ THỐNG
+2.1. Biểu đồ Phân rã Chức năng (BFD) Tổng quát Toàn hệ thống (Mức 0, Mức 1, Mức 2)
+Toàn bộ hệ thống được phân rã từ chức năng gốc Mức 0 thành 6 nhánh chức năng chính ở Mức 1 và 35 chức năng lá ở Mức 2, bao phủ trọn vẹn 23 Use Case (từ UC01 đến UC23) của cả 5 thành viên:
+  
+
+Hình 2.1. Biểu đồ Phân rã Chức năng (BFD) tổng quát toàn hệ thống (6 nhánh chức năng, 23 Use Case)
+2.2. Biểu đồ Use Case Tổng quát Toàn hệ thống (23 Use Case – 5 Tác nhân – 6 Gói)
+Mô hình Use Case toàn hệ thống gồm đúng 5 Tác nhân (Khách vãng lai, Khách đấu giá – Bidder, Quản trị viên – Admin, Cổng thanh toán, Đơn vị vận chuyển) và 23 Use Case (15 UC lõi đặc tả sâu và 8 UC mở rộng), không sử dụng tác nhân thời gian (các tác vụ tự động theo giờ do lớp điều khiển SystemScheduler đảm nhiệm):
+  
+
+Hình 2.2. Biểu đồ Use Case tổng quát toàn hệ thống (23 Use Case chia theo 6 gói nghiệp vụ)
+2.3. Biểu đồ Phân rã (Đặc biệt hóa) 4 Use Case Trừu tượng (UC06, UC08, UC11, UC16)
+Để giữ đúng tổng số 23 Use Case toàn hệ thống nhưng vẫn đặc tả chi tiết từng thao tác quản lý, 4 Use Case tổng quát (UC06, UC08, UC11, UC16) được phân rã thành các ca sử dụng con bằng quan hệ tổng quát hóa / đặc biệt hóa như Hình 2.3:
+  
+
+Hình 2.3. Biểu đồ phân rã 4 Use Case trừu tượng (UC06, UC08, UC11, UC16) thành các ca sử dụng con
+2.4. Bảng Danh mục Tổng hợp 23 Use Case Toàn hệ thống và Đối chiếu BFD – FR
+Mã UC
+	Tên Use Case chuẩn hóa
+	Gói & Phân hệ
+	Actor chính
+	Actor phụ
+	Phân loại
+	Nhánh BFD / FR
+	UC01
+	Đăng ký tài khoản Bidder
+	Gói 1: Tài khoản & KYC (P1)
+	Khách vãng lai
+	Không
+	Lõi (1/15)
+	1.1 / FR_TK01
+	UC02
+	Đăng nhập / Đăng xuất hệ thống
+	Gói 1: Tài khoản & KYC (P1)
+	Khách, Bidder, Admin
+	Không
+	Lõi (2/15)
+	1.2 / FR_TK02
+	UC03
+	Nộp hồ sơ xác minh danh tính (KYC)
+	Gói 1: Tài khoản & KYC (P1)
+	Bidder
+	Không
+	Lõi (3/15)
+	1.3 / FR_TK03
+	UC04
+	Duyệt / Từ chối hồ sơ xác minh KYC
+	Gói 1: Tài khoản & KYC (P1)
+	Admin
+	Không
+	Lõi (4/15)
+	1.4 / FR_TK04
+	UC05
+	Cập nhật hồ sơ cá nhân & mật khẩu
+	Gói 1: Tài khoản & KYC (P1)
+	Bidder
+	Không
+	Mở rộng (1/8)
+	1.5 / FR_TK05
+	UC06
+	Quản lý tài khoản Bidder (UC06.1–06.3: Xem, Khóa, Mở)
+	Gói 1: Tài khoản & KYC (P1)
+	Admin
+	Không
+	Mở rộng (2/8)
+	1.6 / FR_TK06
+	UC07
+	Tra cứu, lọc và xem chi tiết hiện vật công khai
+	Gói 2: Hiện vật & Giám định (P2)
+	Khách, Bidder
+	Không
+	Lõi (5/15)
+	2.1 / FR_HV01–02
+	UC08
+	Quản lý danh mục và hiện vật (7 ca con UC08.1–UC08.7)
+	Gói 2: Hiện vật & Giám định (P2)
+	Admin
+	Không
+	Lõi (6/15)
+	2.2–2.5 / FR_HV03–08
+	UC09
+	Giám định hiện vật và cấp chứng thư
+	Gói 2: Hiện vật & Giám định (P2)
+	Admin
+	Không
+	Lõi (7/15)
+	2.6 / FR_HV09–11
+	UC10
+	Quản lý Watchlist và Phiên đấu giá cá nhân
+	Gói 3: Đặt giá & Theo dõi (P4)
+	Bidder
+	Không
+	Mở rộng (3/8)
+	4.5–4.6 / FR_P4_05–06
+	UC11
+	Quản lý phiên đấu giá (4 ca con UC11.1–11.4: Tạo, Lịch, Sửa, Hủy)
+	Gói 4: Vòng đời Phiên (P3)
+	Admin
+	Không
+	Lõi (8/15)
+	3.1–3.4 / FR_P3_01–04
+	UC12
+	Mở phiên đấu giá (Tự động qua SystemScheduler / Thủ công)
+	Gói 4: Vòng đời Phiên (P3)
+	Admin (SystemScheduler)
+	Không
+	Lõi (9/15)
+	3.5 / FR_P3_05
+	UC13
+	Đặt giá hiện vật (Place Bid)
+	Gói 3: Đặt giá & Theo dõi (P4)
+	Bidder
+	Không
+	Lõi (10/15)
+	4.3–4.4 / FR_P4_03–04
+	UC14
+	Theo dõi phòng đấu giá trực tiếp
+	Gói 3: Đặt giá & Theo dõi (P4)
+	Khách, Bidder
+	Không
+	Lõi (11/15)
+	4.1–4.2 / FR_P4_01–02
+	UC15
+	Đóng phiên, xác định người thắng và khởi tạo đơn hàng
+	Gói 4: Vòng đời Phiên (P3)
+	Admin (SystemScheduler)
+	Không
+	Lõi (12/15)
+	3.6 / FR_P3_06–07
+	UC16
+	Quản lý đơn hàng (UC16.1–16.4: Xem, Lọc, Hủy quá hạn, Hoàn tất)
+	Gói 5: Đơn hàng & Khiếu nại (P5)
+	Bidder, Admin
+	Không
+	Lõi (13/15)
+	5.1–5.3 / FR-P5-01–04
+	UC17
+	Thanh toán đơn hàng
+	Gói 5: Đơn hàng & Khiếu nại (P5)
+	Bidder
+	Cổng thanh toán
+	Lõi (14/15)
+	5.4 / FR-P5-05–06
+	UC18
+	Đóng gói cổ vật và tạo vận đơn
+	Gói 5: Đơn hàng & Khiếu nại (P5)
+	Admin
+	Đơn vị vận chuyển
+	Lõi (15/15)
+	5.5 / FR-P5-07
+	UC19
+	Theo dõi trạng thái vận chuyển
+	Gói 5: Đơn hàng & Khiếu nại (P5)
+	Bidder, Admin
+	Đơn vị vận chuyển
+	Mở rộng (4/8)
+	5.6 / FR-P5-08
+	UC20
+	Gửi khiếu nại kèm bằng chứng
+	Gói 5: Đơn hàng & Khiếu nại (P5)
+	Bidder
+	Không
+	Mở rộng (5/8)
+	6.1 / FR-P5-09
+	UC21
+	Xử lý khiếu nại và hoàn tiền (REFUND)
+	Gói 5: Đơn hàng & Khiếu nại (P5)
+	Admin
+	Cổng thanh toán
+	Mở rộng (6/8)
+	6.2–6.3 / FR-P5-10–11
+	UC22
+	Xem báo cáo thống kê doanh thu & phiên đấu giá
+	Gói 6: Quản trị & Thống kê (P1)
+	Admin
+	Không
+	Mở rộng (7/8)
+	6.4 / FR_TK07
+	UC23
+	Xem và đối soát nhật ký hệ thống (AuditLog)
+	Gói 6: Quản trị & Thống kê (P1)
+	Admin
+	Không
+	Mở rộng (8/8)
+	6.5 / FR_TK08
+	 
+CHƯƠNG 3. PHÂN TÍCH HỆ THỐNG TỔNG QUÁT (18 LỚP THỰC THỂ – KIẾN TRÚC BCE – MÁY TRẠNG THÁI)
+3.1. Biểu đồ Lớp Thực thể Phân tích Tĩnh Tổng hợp Toàn hệ thống (18 Lớp Thực thể – 5 Cụm)
+Theo Phương án 2 đã thống nhất, toàn hệ thống có 18 lớp thực thể chia làm 5 cụm nghiệp vụ: Cụm Người dùng (3 lớp: User, BidderProfile/Bidder, VerificationDocument), Cụm Hiện vật (5 lớp: Category, AntiqueItem, ItemImage, ProvenanceRecord, AppraisalCertificate), Cụm Đấu giá & Theo dõi (4 lớp: Auction, Bid, Watchlist, WatchlistItem), Cụm Đơn hàng – Thanh toán – Vận chuyển (3 lớp: Order, Payment, Shipment) và Cụm Khiếu nại – Hỗ trợ (3 lớp: Dispute, Notification, AuditLog):
+  
+
+Hình 3.1. Biểu đồ Lớp thực thể phân tích tĩnh tổng hợp toàn hệ thống (18 lớp thực thể chia theo 5 cụm)
+3.2. Từ điển 18 Lớp Thực thể Toàn hệ thống (Theo Phương án 2)
+STT
+	Tên Lớp Thực thể
+	Cụm & Chủ lớp
+	Trách nhiệm và mô tả nghiệp vụ chuẩn hóa
+	1
+	User
+	Người dùng (P1)
+	Tài khoản đăng nhập hệ thống (email, mật khẩu băm, họ tên, SĐT, vai trò BIDDER/ADMIN, trạng thái khóa).
+	2
+	BidderProfile
+	Người dùng (P1/P4)
+	Hồ sơ khách đấu giá kế thừa từ User (P4 viết gọn là Bidder): lưu trạng thái KYC, số lần vi phạm (violationCount) và địa chỉ nhận hàng.
+	3
+	VerificationDocument
+	Người dùng (P1)
+	Tài liệu giấy tờ tùy thân (CCCD/Hộ chiếu) do Bidder tải lên để Admin xét duyệt xác minh danh tính (KYC).
+	4
+	Category
+	Hiện vật (P2)
+	Danh mục phân loại cổ vật (Gốm sứ, Tượng, Tiền cổ, Tranh...); chỉ thêm, đổi tên, ẩn/hiện lại, không xóa.
+	5
+	AntiqueItem
+	Hiện vật (P2)
+	Hiện vật đồ cổ độc bản thuộc sở hữu của sàn; quản lý thông số kỹ thuật, niên đại, tình trạng và vòng đời 8 trạng thái.
+	6
+	ItemImage
+	Hiện vật (P2)
+	Tệp hình ảnh của hiện vật (từ 1 đến 5 ảnh JPG/PNG <= 5MB, có đúng 1 ảnh đại diện isPrimary = true).
+	7
+	ProvenanceRecord
+	Hiện vật (P2)
+	Hồ sơ nguồn gốc xuất xứ, nguồn thu nhận, lịch sử sở hữu và tài liệu đi kèm gắn 1–1 với hiện vật.
+	8
+	AppraisalCertificate
+	Hiện vật (P2)
+	Bản ghi kết quả giám định (PASSED/REJECTED) kèm chứng thư hợp lệ (VALID/REVOKED); bất biến ở tầng CSDL.
+	9
+	Auction
+	Đấu giá (P3)
+	Phiên đấu giá kiểu Anh theo khung giờ cố định [startTime, endTime] cho đúng 1 hiện vật độc bản.
+	10
+	Bid
+	Đấu giá (P4)
+	Lượt đặt giá cụ thể của một Bidder trong một phiên đấu giá (bidAmount, bidTime, status).
+	11
+	Watchlist
+	Đấu giá (P4)
+	Danh sách theo dõi cá nhân của từng Bidder (quan hệ Hợp thành 1–1 với Bidder theo Phương án 2).
+	12
+	WatchlistItem
+	Đấu giá (P4)
+	Từng dòng mục phiên đấu giá cụ thể được lưu bên trong Watchlist cá nhân của Bidder (quan hệ 1–0..* từ Watchlist).
+	13
+	Order
+	Đơn hàng (P5)
+	Đơn hàng sinh tự động khi đóng phiên có người thắng đạt giá sàn (hammerPrice + buyersPremium + shippingFee).
+	14
+	Payment
+	Đơn hàng (P5)
+	Giao dịch tài chính qua cổng thanh toán: thu tiền đơn hàng (CHARGE) hoặc hoàn tiền khiếu nại (REFUND).
+	15
+	Shipment
+	Đơn hàng (P5)
+	Vận đơn giao hàng cổ vật: lưu mã vận đơn (trackingCode), thông tin đóng gói, mức bảo hiểm và trạng thái giao nhận.
+	16
+	Dispute
+	Khiếu nại & Hỗ trợ (P5)
+	Hồ sơ khiếu nại của người mua gửi trong vòng Y ngày kể từ khi vận đơn báo Đã giao hàng (DELIVERED).
+	17
+	Notification
+	Khiếu nại & Hỗ trợ (P4)
+	Thông báo tự động gửi tới người dùng (bị vượt giá OUTBID, thắng phiên AUCTION_WON, hủy phiên, quá hạn...).
+	18
+	AuditLog
+	Khiếu nại & Hỗ trợ (P1)
+	Nhật ký truy vết mọi thao tác nhạy cảm của Admin và SystemScheduler; chỉ thêm và đọc (BR28, BR29).
+	 
+3.3. Biểu đồ Lớp Phân tích theo mẫu BCE Tổng hợp và Bảng Ánh xạ 23 Use Case -> BCE
+Kiến trúc phân tích theo mẫu BCE (Boundary – Control – Entity) của toàn hệ thống gồm 15 lớp Biên (13 màn hình giao diện người dùng + 2 giao diện tích hợp dịch vụ ngoài), 11 lớp Điều khiển (10 Controller + SystemScheduler) và 18 lớp Thực thể. Toàn bộ nhóm thống nhất dùng tên AuctionRoomView (không dùng LiveAuctionRoomView) và DisputeController (không dùng DisputeReviewController):
+  
+
+Hình 3.2. Biểu đồ Lớp phân tích theo mẫu BCE (Boundary – Control – Entity) tổng hợp toàn hệ thống
+UC
+	Lớp Biên (Boundary)
+	Lớp Điều khiển (Control)
+	Các Lớp Thực thể (Entity) tham gia
+	UC01
+	AuthView
+	AuthController
+	User, BidderProfile
+	UC02
+	AuthView
+	AuthController
+	User
+	UC03
+	VerificationForm
+	UserController
+	BidderProfile, VerificationDocument
+	UC04
+	VerificationForm, AdminDashboardView
+	UserController
+	BidderProfile, VerificationDocument, AuditLog, Notification
+	UC05
+	VerificationForm
+	UserController
+	User, BidderProfile
+	UC06
+	AdminDashboardView
+	UserController
+	User, BidderProfile, AuditLog
+	UC07
+	CatalogueView
+	ItemController (CatalogueController)
+	AntiqueItem, Category, ItemImage, ProvenanceRecord, AppraisalCertificate, Auction
+	UC08
+	ItemManagementView
+	ItemController
+	Category, AntiqueItem, ItemImage, ProvenanceRecord, AppraisalCertificate, Auction, AuditLog
+	UC09
+	AppraisalForm
+	ItemController (AppraisalController)
+	AntiqueItem, AppraisalCertificate, AuditLog
+	UC10
+	WatchlistView, AuctionRoomView
+	BidController
+	Bidder, Watchlist, WatchlistItem, Auction, Bid
+	UC11
+	AuctionManagementView
+	AuctionController
+	Auction, AntiqueItem, AppraisalCertificate, AuditLog, Notification
+	UC12
+	AuctionManagementView, AuctionRoomView
+	AuctionController, SystemScheduler
+	Auction, AntiqueItem, AuditLog
+	UC13
+	AuctionRoomView
+	BidController
+	Bidder, Auction, Bid, Notification
+	UC14
+	AuctionRoomView
+	BidController
+	Auction, Bid, AntiqueItem, AppraisalCertificate
+	UC15
+	AuctionManagementView, AuctionRoomView
+	AuctionController, OrderController, SystemScheduler
+	Auction, Bid, Order, AntiqueItem, Notification, AuditLog
+	UC16
+	OrderManagementView
+	OrderController, SystemScheduler
+	Order, AntiqueItem, BidderProfile, Dispute, AuditLog, Notification
+	UC17
+	PaymentCheckoutView, PaymentGatewayInterface
+	PaymentController
+	Order, Payment, AntiqueItem, Notification
+	UC18
+	ShipmentForm, ShippingServiceInterface
+	ShipmentController
+	Order, Shipment, AuditLog, Notification
+	UC19
+	OrderManagementView, ShippingServiceInterface
+	ShipmentController
+	Shipment, Order, Notification
+	UC20
+	OrderManagementView, DisputeView
+	DisputeController
+	Order, Dispute, Notification
+	UC21
+	DisputeView, PaymentGatewayInterface
+	DisputeController, PaymentController
+	Dispute, Order, Payment, AntiqueItem, AuditLog, Notification
+	UC22
+	AdminDashboardView
+	ReportAuditController
+	Auction, Order, Payment, Bid
+	UC23
+	AdminDashboardView
+	ReportAuditController
+	AuditLog
+	 
+3.4. Bộ 4 Biểu đồ Máy Trạng thái (State Machine Diagram) của 4 Thực thể Lõi
+Vòng đời trạng thái của 4 thực thể cốt lõi liên kết chặt chẽ với nhau qua các cổng giao tiếp liên phân hệ: Hiện vật (AntiqueItem – 8 trạng thái), Phiên đấu giá (Auction – 7 trạng thái, trong đó tách rõ 3 trạng thái kết thúc ENDED_SOLD, ENDED_RESERVE_NOT_MET, ENDED_NO_BIDS), Đơn hàng (Order – 8 trạng thái) và Giao dịch thanh toán (Payment – 4 trạng thái):
+  
+
+Hình 3.3. Bộ 4 Biểu đồ Máy trạng thái (State Machine Diagram) của AntiqueItem, Auction, Order và Payment
+CHƯƠNG 4. THIẾT KẾ HỆ THỐNG TỔNG QUÁT (LỚP CHI TIẾT – ERD 18 BẢNG – GÓI & TRIỂN KHAI)
+4.1. Biểu đồ Lớp Thiết kế Chi tiết (Design Class Diagram) Tổng hợp Toàn hệ thống
+Ở giai đoạn thiết kế chi tiết, toàn bộ kiểu dữ liệu tiền tệ được chuẩn hóa thành BigDecimal (không dùng số thực Double), kiểu thời gian thiết kế dùng LocalDateTime / Instant, các mối quan hệ giữa các lớp thực thể được ánh xạ thành thuộc tính tham chiếu đối tượng (Object References) hoặc tập hợp (List<T>) theo đúng Mục 6.2.5–6.2.6 giáo trình của thầy Trần Đình Quế, và bổ sung đầy đủ các phương thức phối hợp liên phân hệ:
+  
+
+Hình 4.1. Biểu đồ Lớp thiết kế chi tiết (Design Class Diagram) tổng hợp toàn hệ thống (18 lớp thực thể & tầng Control)
+4.2. Bảng Chuẩn hóa Chữ ký Phương thức Giao tiếp Liên phân hệ (Inter-Module Methods)
+Chiều giao tiếp
+	Lớp / Cổng đích
+	Chữ ký phương thức chuẩn hóa
+	Quy tắc phối hợp giữa các phân hệ
+	P3 / P5 -> P2 (Đổi trạng thái Hiện vật)
+	ItemStatusPort / AntiqueItem
+	+ markInAuction(itemId: Long): void
++ markReserved(itemId: Long): void
++ releaseToAvailable(itemId: Long): void
++ markSoldDelivering(itemId: Long): void
++ markSoldDelivered(itemId: Long): void
+	UC12 mở phiên gọi markInAuction(); UC15 đóng phiên có người thắng gọi markReserved(), không người thắng gọi releaseToAvailable(); UC17 đơn PAID gọi markSoldDelivering(); UC16.3 quá hạn & UC21 hoàn tiền gọi releaseToAvailable(); UC16.4 & UC21 hoàn tất đơn gọi markSoldDelivered().
+	P3 -> P2 (Kiểm tra điều kiện tạo phiên)
+	ItemQueryPort / AntiqueItem
+	+ isEligibleForAuction(itemId: Long): Boolean
+(hoặc + isAvailableForAuction(): Boolean)
+	UC11 tạo phiên kiểm tra hiện vật đang ở trạng thái AVAILABLE và có chứng thư VALID trong cùng transaction (khóa dòng hiện vật).
+	P2 -> P3 (Kiểm tra phiên chưa kết thúc)
+	AuctionQueryPort / Auction
+	+ existsUnfinishedForItem(itemId: Long): Boolean
++ findCurrentByItems(itemIds): Map<Long, AuctionBriefDTO>
+	UC08.2 sửa hiện vật và UC08.4 gỡ niêm yết kiểm tra hiện vật không có phiên đang ở DRAFT, SCHEDULED hoặc ACTIVE (BR07e, BR12).
+	P4 -> P3 (Kiểm tra & Cập nhật giá đặt)
+	Auction (Entity - P3)
+	+ validateBid(bidder: Bidder, amount: BigDecimal): Boolean
++ isOpenForBidding(now: LocalDateTime): Boolean
++ getMinNextBid(): BigDecimal
++ updateHighestBid(newBid: Bid): Bidder
+	UC13 (BidController.placeBid) khóa bản ghi Auction (SELECT ... FOR UPDATE), gọi validateBid() (bên trong kiểm tra isOpenForBidding(now) và amount >= getMinNextBid()), sau đó gọi updateHighestBid(newBid).
+	P3 -> P4 (Lấy lượt đặt giá dẫn đầu)
+	Bid (Entity - P4)
+	+ findTopBid(auctionId: Long): Bid
++ getBidHistory(auctionId: Long): List<Bid>
+	UC15 (AuctionController.closeDueAuctions) gọi Bid.findTopBid(auctionId) theo chỉ mục (auction_id, bid_amount DESC, bid_time ASC) để xác định người thắng phiên.
+	P3 -> P5 (Tự động khởi tạo đơn hàng)
+	OrderController (Control - P5)
+	+ createOrderFromAuction(auction: Auction): Order
+	UC15 khi phiên đạt giá sàn (ENDED_SOLD) gọi OrderController.createOrderFromAuction(auction) trong cùng transaction đóng phiên.
+	P3, P5 -> P4 (Phát thông báo người dùng)
+	Notification (Entity - P4)
+	+ Notification(recipient: Bidder, title: String, content: String, type: NotificationType)
+	Phát thông báo OUTBID (UC13), AUCTION_WON / AUCTION_ENDED (UC15), AUCTION_CANCELLED (UC11.4), ORDER_REMINDER / OVERDUE (UC16).
+	P1–P5 -> P1 (Ghi nhật ký hệ thống)
+	AuditLogService / AuditLog (P1)
+	+ record(actorId: Long, action: String, entityType: String, entityId: Long, detail: String): void
+	Mọi thao tác nhạy cảm của Admin và SystemScheduler ghi nhật ký trong cùng transaction (BR28).
+	 
+4.3. Lược đồ Cơ sở dữ liệu Quan hệ (ERD) Tổng hợp Toàn hệ thống (18 Bảng CSDL theo Phương án 2)
+Ánh xạ từ 18 lớp thực thể sang Cơ sở dữ liệu quan hệ thu được đúng 18 bảng (tên bảng dùng snake_case số nhiều, kiểu tiền tệ DECIMAL(18,2), kiểu thời gian DATETIME(3) / DATETIME(6)), trong đó giữ nguyên thiết kế tách 2 bảng watchlists (1:1 với Bidder qua UNIQUE bidder_id) và watchlist_items (1:N từ watchlists kèm UNIQUE watchlist_id, auction_id) của P4 theo Phương án 2:
+  
+
+Hình 4.2. Lược đồ Cơ sở dữ liệu quan hệ (ERD) tổng hợp toàn hệ thống (18 bảng CSDL theo Phương án 2)
+4.4. Biểu đồ Gói (Package Diagram), Thành phần (Component) và Triển khai (Deployment) Toàn hệ thống
+Kiến trúc gói phần mềm (Presentation / UI Boundary Package, Control & Application Service Package, Domain Entity & Persistence Package) và kiến trúc triển khai vật lý 4 nút hạ tầng (Client Browser Node, Web/Application Server, Database Server, External Mock Services) của toàn hệ thống được thể hiện ở Hình 4.3 và Hình 4.4:
+  
+
+Hình 4.3. Biểu đồ Gói (Package Diagram) và Thành phần (Component) tổng hợp toàn hệ thống
+  
+
+Hình 4.4. Biểu đồ Triển khai (Deployment Diagram) kiến trúc hạ tầng tổng thể toàn hệ thống
+CHƯƠNG 5. BẢNG HƯỚNG DẪN ĐỒNG BỘ NHANH CHO P2, P3, P5 THEO PHƯƠNG ÁN 2
+Vì bài báo cáo của P4 (`P4_DatGia_TheoDoi_DongBo_PA2_VP.docx`) đã được cập nhật hoàn chỉnh theo Phương án 2 (đổi LiveAuctionRoomView -> AuctionRoomView, DisputeController, 23 Use Case, BigDecimal, LocalDateTime, bổ sung findTopBid / isOpenForBidding / getMinNextBid, tách trạng thái ENDED_SOLD / ENDED_RESERVE_NOT_MET / ENDED_NO_BIDS và bỏ cột 'Đạt (Pass)' ở bảng kiểm thử), dưới đây là danh sách các dòng cần chỉnh nhẹ ở P3 và P5 khi ghép bài tổng để khớp 100%:
+STT
+	Thành viên & Mục cần chỉnh
+	Hạng mục
+	Nội dung chỉnh sửa cụ thể khi ghép báo cáo tổng
+	1
+	P3 (Mục 3.1.4, 3.1.5, 4.2.4, 4.3.2)
+	Số lượng lớp thực thể và bảng CSDL của cụm Theo dõi (Watchlist)
+	Sửa tổng số lớp thực thể từ 17 lớp -> 18 lớp (và ERD từ 17 bảng -> 18 bảng): bổ sung lớp/bảng Watchlist (watchlists) có quan hệ Hợp thành 1–1 với BidderProfile (UNIQUE bidder_id) và hợp thành 1–0..* xuống WatchlistItem (watchlist_items).
+	2
+	P3 (Mục 3.2.2 Hình 3.6–3.8 & Bảng 3.6)
+	Tên phương thức đổi trạng thái của AntiqueItem
+	Đổi lời gọi AntiqueItem.changeStatus(IN_AUCTION / AVAILABLE / RESERVED_PENDING_PAYMENT) thành các phương thức chuẩn của P2: markInAuction(), releaseToAvailable(), markReserved().
+	3
+	P3 (Mục 4.3.3 Từ điển dữ liệu tổng)
+	Đồng bộ tên cột chi tiết của bảng antique_items, appraisal_certificates, bids, notifications, orders, payments, disputes
+	Cập nhật bảng từ điển dữ liệu tổng ở mục 4.3.3 theo đúng thiết kế chi tiết của P2, P4, P5 (hoặc thay hình 3.2, 4.6 của P3 bằng Hình 3.1 và Hình 4.2 trong tài liệu tổng hợp này).
+	4
+	P5 (Mục 3.1.1, 3.1.2, 4.1, 4.2, 4.3)
+	Tên khóa ngoại tham chiếu phiên đấu giá trong lớp/bảng Order
+	Đổi auctionResultId (cột auction_result_id) thành auctionId (cột auction_id UNIQUE tham chiếu tới bảng auctions) vì hệ thống không có lớp AuctionResult riêng.
+	5
+	P5 (Mục 3.3 Sequence UC16.3 & Mục 4.3)
+	Tên phương thức giải phóng hiện vật & Quy ước viết thường tên bảng
+	Trong Sequence UC16.3, đổi AntiqueItem.markAvailable(itemId) thành releaseToAvailable(itemId) để khớp với P2. Ở mục 4.3, viết thường tên bảng snake_case số nhiều (orders, payments, shipments, disputes).
+	6
+	P2, P3, P4, P5 (Mục 5.1)
+	Thống nhất tên Hệ quản trị CSDL trong báo cáo tổng
+	Thống nhất ghi MySQL 8.4 InnoDB (như phần Mở đầu của P2 và thiết kế của P4) hoặc ghi rõ 'MySQL 8.4 (ví dụ minh họa tương đương trên PostgreSQL)' để không mâu thuẫn giữa Mở đầu và Chương 4–5.

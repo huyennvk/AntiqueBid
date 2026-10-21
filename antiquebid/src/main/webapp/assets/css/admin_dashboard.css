@@ -1,0 +1,30 @@
+/* ==========================================================================
+   ADMIN_DASHBOARD.CSS - Bảng điều khiển tổng quan quản trị Cổ Vật Đường
+   Tương ứng: admin/dashboard.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+@import url('admin.css');
+
+.stat-card-gold { border-top: 4px solid var(--gold); }
+.stat-card-red { border-top: 4px solid #ef4444; }
+.stat-card-blue { border-top: 4px solid #2563eb; }
+.stat-card-green { border-top: 4px solid #10b981; }
+
+.alert-card-warning {
+    border-left: 4px solid #f59e0b;
+}
+
+.alert-card-danger {
+    border-left: 4px solid #ef4444;
+}
+
+.alert-card-title-warning {
+    font-weight: 700;
+    color: #92400e;
+}
+
+.alert-card-title-danger {
+    font-weight: 700;
+    color: #991b1b;
+}

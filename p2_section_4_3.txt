@@ -1,0 +1,992 @@
+2.4.3 Ẩn và hiện lại danh mục
+FR_HV07
+UC08.7
+2.5.1 Ghi kết quả giám định
+FR_HV09
+UC09
+2.5.2 Cấp chứng thư
+FR_HV10
+UC09
+2.5.3 Xem lịch sử giám định
+FR_HV11
+UC09
+2.2 Mô hình use case
+2.2.1 Tác nhân trong gói Hiện vật
+Tác nhân | Loại | Vai trò trong gói | Use case
+Khách vãng lai | Con người | Chưa đăng nhập; chỉ xem hiện vật công khai | UC07
+Khách đấu giá | Con người | Tài khoản đã đăng nhập; xem hiện vật công khai như Khách vãng lai | UC07
+Admin | Con người | Chủ sàn kiêm người bán duy nhất; quản lý toàn bộ vòng đời hiện vật trước phiên | UC08, UC09
+Tác nhân
+Loại
+Vai trò trong gói
+Use case
+Khách vãng lai
+Con người
+Chưa đăng nhập; chỉ xem hiện vật công khai
+UC07
+Khách đấu giá
+Con người
+Tài khoản đã đăng nhập; xem hiện vật công khai như Khách vãng lai
+UC07
+Admin
+Con người
+Chủ sàn kiêm người bán duy nhất; quản lý toàn bộ vòng đời hiện vật trước phiên
+UC08, UC09
+2.2.4 Use case diagram gói Hiện vật và phân rã UC08
+Biểu đồ gói:
+Biểu đồ phân rã UC08 (đặc biệt hóa). Mỗi ca con là một đơn vị kịch bản.
+Ca con | Tên | Mô tả | FR | BR
+UC08.1 | Thêm hồ sơ hiện vật | Tạo hiện vật DRAFT kèm hồ sơ nguồn gốc và 1 đến 5 ảnh | FR_HV03 | BR05
+UC08.2 | Sửa hồ sơ và quản lý ảnh | Sửa thông tin, thêm, xóa ảnh, đổi ảnh đại diện; thu hồi chứng thư khi đổi trường định danh | FR_HV04 | BR05, BR06f, BR07e
+UC08.3 | Niêm yết hiện vật | APPRAISED_PASSED sang AVAILABLE | FR_HV05 | BR07a
+UC08.4 | Gỡ niêm yết hiện vật | AVAILABLE về APPRAISED_PASSED | FR_HV05 | BR07b
+UC08.5 | Xóa hiện vật nháp | Xóa hẳn hiện vật DRAFT chưa từng giám định | FR_HV06 | BR07d
+UC08.6 | Lưu trữ và khôi phục hiện vật | Bật hoặc tắt cờ isArchived | FR_HV06 | BR07d
+UC08.7 | Quản lý danh mục | Thêm, đổi tên, ẩn, hiện lại danh mục | FR_HV07 | BR05f
+Ca con
+Tên
+Mô tả
+FR
+BR
+UC08.1
+Thêm hồ sơ hiện vật
+Tạo hiện vật DRAFT kèm hồ sơ nguồn gốc và 1 đến 5 ảnh
+FR_HV03
+BR05
+UC08.2
+Sửa hồ sơ và quản lý ảnh
+Sửa thông tin, thêm, xóa ảnh, đổi ảnh đại diện; thu hồi chứng thư khi đổi trường định danh
+FR_HV04
+BR05, BR06f, BR07e
+UC08.3
+Niêm yết hiện vật
+APPRAISED_PASSED sang AVAILABLE
+FR_HV05
+BR07a
+UC08.4
+Gỡ niêm yết hiện vật
+AVAILABLE về APPRAISED_PASSED
+FR_HV05
+BR07b
+UC08.5
+Xóa hiện vật nháp
+Xóa hẳn hiện vật DRAFT chưa từng giám định
+FR_HV06
+BR07d
+UC08.6
+Lưu trữ và khôi phục hiện vật
+Bật hoặc tắt cờ isArchived
+FR_HV06
+BR07d
+UC08.7
+Quản lý danh mục
+Thêm, đổi tên, ẩn, hiện lại danh mục
+FR_HV07
+BR05f
+2.2.5 Giải thích quan hệ giữa các use case
+Trong gói Hiện vật không vẽ include hay extend. Các use case nối với nhau qua trạng thái của AntiqueItem:
+UC09 không phải include hay extend của UC08.3. Niêm yết cần chứng thư VALID như một tiền điều kiện (BR07a), không phải một bước nằm trong luồng của UC08.3, và giám định là bước bắt buộc chứ không phải hành vi tùy chọn gắn thêm.
+UC08.2 có thể thu hồi chứng thư do UC09 đã cấp. Đây là tác động lên dữ liệu (BR06f), không phải quan hệ giữa hai use case.
+Ghi nhật ký (AuditLog) là một bước trong luồng của UC08 và UC09, không vẽ thành use case riêng để giữ đúng 23 UC.
+2.2.6 Bảng use case của gói
+Mã | Tên use case | Gói | Actor chính | Actor phụ | Loại
+UC07 | Tra cứu và xem chi tiết hiện vật | Hiện vật | Khách vãng lai, Khách đấu giá | Không | Lõi
+UC08 | Quản lý danh mục và hiện vật | Hiện vật | Admin | Không | Lõi
+UC09 | Giám định hiện vật và cấp chứng thư | Hiện vật | Admin | Không | Lõi
+Mã
+Tên use case
+Gói
+Actor chính
+Actor phụ
+Loại
+UC07
+Tra cứu và xem chi tiết hiện vật
+Hiện vật
+Khách vãng lai, Khách đấu giá
+Không
+Lõi
+UC08
+Quản lý danh mục và hiện vật
+Hiện vật
+Admin
+Không
+Lõi
+UC09
+Giám định hiện vật và cấp chứng thư
+Hiện vật
+Admin
+Không
+Lõi
+2.3 Kịch bản use case (đặc tả chi tiết)
+Mỗi kịch bản gồm tên use case, tác nhân chính, tiền điều kiện, đảm bảo tối thiểu, hậu điều kiện, chuỗi sự kiện chính và ngoại lệ. UC08 là use case trừu tượng nên kịch bản được viết cho từng ca con.
+2.3.2 Hiện vật
+UC07. Tra cứu và xem chi tiết hiện vật
+Thành phần | Nội dung
+Tên Use Case | UC07 – Tra cứu và xem chi tiết hiện vật
+Tác nhân chính | Khách vãng lai, Khách đấu giá
+Tiền điều kiện | Không cần đăng nhập
+Đảm bảo tối thiểu | Dữ liệu không thay đổi. Hiện vật ngoài trạng thái công khai không bao giờ xuất hiện; ước giá, ghi chú giám định, nguồn thu nhận và giá sàn không bao giờ bị trả ra
+Hậu điều kiện | Danh sách hoặc chi tiết hiển thị đúng, chỉ gồm hiện vật ở trạng thái công khai
+Chuỗi sự kiện chính | 1. Tác nhân chọn chức năng xem danh mục hiện vật.2. Hệ thống hiển thị các danh mục đang hoạt động và trang đầu gồm 12 hiện vật ở trạng thái công khai (BR07c), sắp theo mới nhất.3. Hệ thống hiển thị kèm mỗi hiện vật có phiên chưa kết thúc giá hiện tại hoặc giá khởi điểm và thời điểm kết thúc (không có giá sàn).4. Tác nhân nhập từ khóa, chọn bộ lọc (danh mục, niên đại, chất liệu, nhóm trạng thái) hoặc kiểu sắp xếp.5. Hệ thống áp dụng bộ lọc trên hiện vật công khai và hiển thị trang kết quả kèm tổng số trang.6. Tác nhân chọn một hiện vật.7. Hệ thống kiểm tra hiện vật tồn tại và công khai, rồi hiển thị chi tiết: ảnh, mô tả, thông số, hồ sơ nguồn gốc công khai (xuất xứ, lịch sở hữu), chứng thư VALID (số, ngày, người giám định, trạng thái) và liên kết vào phòng đấu giá nếu có phiên (UC14).
+Ngoại lệ | 5.1 Không có hiện vật phù hợp.5.1.1 Hệ thống thông báo "Không tìm thấy hiện vật phù hợp" và gợi ý bỏ bớt bộ lọc.5.2 Niên đại bắt đầu lớn hơn niên đại kết thúc, hoặc giá trị nhập không phải số.5.2.1 Hệ thống báo lỗi tại ô nhập và giữ kết quả cũ.5.3 Số trang vượt tổng số trang.5.3.1 Hệ thống hiển thị trang rỗng kèm tổng số trang đúng.7.1 Hiện vật không tồn tại hoặc không ở trạng thái công khai (DRAFT, APPRAISED_PASSED, APPRAISED_REJECTED).7.1.1 Hệ thống thông báo "Hiện vật không tồn tại", không phân biệt hai trường hợp để không lộ dữ liệu nội bộ.7.2 Hiện vật đã lưu trữ nhưng đang ở trạng thái công khai (SOLD_DELIVERED).7.2.1 Hệ thống vẫn hiển thị hiện vật, vì cờ isArchived chỉ ảnh hưởng danh sách quản lý (BR07d).7.3 Không lấy được dữ liệu phiên.7.3.1 Hệ thống vẫn hiển thị hiện vật, không kèm giá và đồng hồ, và thông báo "Chưa lấy được thông tin phiên".
+Thành phần
+Nội dung
+Tên Use Case
+UC07 – Tra cứu và xem chi tiết hiện vật
+Tác nhân chính
+Khách vãng lai, Khách đấu giá
+Tiền điều kiện
+Không cần đăng nhập
+Đảm bảo tối thiểu
+Dữ liệu không thay đổi. Hiện vật ngoài trạng thái công khai không bao giờ xuất hiện; ước giá, ghi chú giám định, nguồn thu nhận và giá sàn không bao giờ bị trả ra
+Hậu điều kiện
+Danh sách hoặc chi tiết hiển thị đúng, chỉ gồm hiện vật ở trạng thái công khai
+Chuỗi sự kiện chính
+1. Tác nhân chọn chức năng xem danh mục hiện vật.
+2. Hệ thống hiển thị các danh mục đang hoạt động và trang đầu gồm 12 hiện vật ở trạng thái công khai (BR07c), sắp theo mới nhất.
+3. Hệ thống hiển thị kèm mỗi hiện vật có phiên chưa kết thúc giá hiện tại hoặc giá khởi điểm và thời điểm kết thúc (không có giá sàn).
+4. Tác nhân nhập từ khóa, chọn bộ lọc (danh mục, niên đại, chất liệu, nhóm trạng thái) hoặc kiểu sắp xếp.
+5. Hệ thống áp dụng bộ lọc trên hiện vật công khai và hiển thị trang kết quả kèm tổng số trang.
+6. Tác nhân chọn một hiện vật.
+7. Hệ thống kiểm tra hiện vật tồn tại và công khai, rồi hiển thị chi tiết: ảnh, mô tả, thông số, hồ sơ nguồn gốc công khai (xuất xứ, lịch sở hữu), chứng thư VALID (số, ngày, người giám định, trạng thái) và liên kết vào phòng đấu giá nếu có phiên (UC14).
+Ngoại lệ
+5.1 Không có hiện vật phù hợp.
+5.1.1 Hệ thống thông báo "Không tìm thấy hiện vật phù hợp" và gợi ý bỏ bớt bộ lọc.
+5.2 Niên đại bắt đầu lớn hơn niên đại kết thúc, hoặc giá trị nhập không phải số.
+5.2.1 Hệ thống báo lỗi tại ô nhập và giữ kết quả cũ.
+5.3 Số trang vượt tổng số trang.
+5.3.1 Hệ thống hiển thị trang rỗng kèm tổng số trang đúng.
+7.1 Hiện vật không tồn tại hoặc không ở trạng thái công khai (DRAFT, APPRAISED_PASSED, APPRAISED_REJECTED).
+7.1.1 Hệ thống thông báo "Hiện vật không tồn tại", không phân biệt hai trường hợp để không lộ dữ liệu nội bộ.
+7.2 Hiện vật đã lưu trữ nhưng đang ở trạng thái công khai (SOLD_DELIVERED).
+7.2.1 Hệ thống vẫn hiển thị hiện vật, vì cờ isArchived chỉ ảnh hưởng danh sách quản lý (BR07d).
+7.3 Không lấy được dữ liệu phiên.
+7.3.1 Hệ thống vẫn hiển thị hiện vật, không kèm giá và đồng hồ, và thông báo "Chưa lấy được thông tin phiên".
+UC08. Quản lý danh mục và hiện vật (use case trừu tượng)
+UC08 gồm bảy ca con (UC08.1 đến UC08.7) và một luồng chung là xem danh sách quản lý (FR_HV08). Điều kiện chung của mọi ca con: Admin đã đăng nhập; mọi thao tác ghi nhật ký AuditLog trong cùng giao dịch (BR28, NFR_HV06).
+Luồng chung: xem danh sách quản lý (FR_HV08)
+1. Admin chọn chức năng Quản lý hiện vật.
+2. Hệ thống hiển thị danh sách hiện vật chưa lưu trữ, có phân trang, kèm nhãn trạng thái.
+3. Admin lọc theo một trong 8 trạng thái hoặc chọn hiển thị cả hiện vật đã lưu trữ.
+4. Hệ thống hiển thị với mỗi hiện vật các chức năng phù hợp trạng thái hiện tại (bảng dưới) và kiểm tra lại khi nhận thao tác.
+Trạng thái | Chức năng được phép
+DRAFT | Sửa; Giám định (UC09); Xóa nếu chưa từng giám định; Lưu trữ nếu đã từng giám định
+APPRAISED_PASSED | Sửa; Niêm yết; Xem lịch sử giám định
+APPRAISED_REJECTED | Sửa; Giám định lại; Lưu trữ
+AVAILABLE | Sửa và Gỡ niêm yết, chỉ khi không có phiên chưa kết thúc
+IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING | Chỉ xem
+SOLD_DELIVERED | Xem; Lưu trữ
+Đã lưu trữ (isArchived) | Xem; Khôi phục
+Trạng thái
+Chức năng được phép
+DRAFT
+Sửa; Giám định (UC09); Xóa nếu chưa từng giám định; Lưu trữ nếu đã từng giám định
+APPRAISED_PASSED
+Sửa; Niêm yết; Xem lịch sử giám định
+APPRAISED_REJECTED
+Sửa; Giám định lại; Lưu trữ
+AVAILABLE
+Sửa và Gỡ niêm yết, chỉ khi không có phiên chưa kết thúc
+IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING
+Chỉ xem
+SOLD_DELIVERED
+Xem; Lưu trữ
+Đã lưu trữ (isArchived)
+Xem; Khôi phục
+UC08.1. Thêm hồ sơ hiện vật
+Thành phần | Nội dung
+Tên Use Case | UC08.1 – Thêm hồ sơ hiện vật
+Tác nhân chính | Admin
+Tiền điều kiện | Đã đăng nhập; có ít nhất một danh mục đang hoạt động (BR05d)
+Đảm bảo tối thiểu | Khi có lỗi: không có AntiqueItem, ProvenanceRecord, ItemImage, tệp ảnh hay AuditLog nào được tạo; dữ liệu đã nhập vẫn còn trên biểu mẫu
+Hậu điều kiện | Một AntiqueItem ở DRAFT với mã HV-xxxx, version 0; một ProvenanceRecord; 1 đến 5 ItemImage với đúng một ảnh đại diện; AuditLog ITEM_CREATE, tất cả trong một giao dịch
+Chuỗi sự kiện chính | 1. Admin chọn chức năng Thêm hiện vật.2. Hệ thống hiển thị biểu mẫu kèm danh sách danh mục đang hoạt động.3. Admin nhập thông tin hiện vật và hồ sơ nguồn gốc.4. Admin chọn 1 đến 5 ảnh và chỉ định ảnh đại diện (mặc định là ảnh đầu).5. Admin chọn Lưu nháp.6. Hệ thống kiểm tra dữ liệu theo BR05a đến BR05d (độ dài, trường bắt buộc, niên đại, xuất xứ và nguồn thu nhận, danh mục đang hoạt động) và kiểm tra từng ảnh (loại tệp thật, không quá 5 MB, số lượng).7. Hệ thống tạo AntiqueItem (DRAFT) với mã hiện vật duy nhất (BR05e), tạo ProvenanceRecord và các ItemImage, lưu tệp ảnh.8. Hệ thống ghi AuditLog ITEM_CREATE trong cùng giao dịch.9. Hệ thống thông báo "Đã lưu hiện vật HV-xxxx" và hiển thị hiện vật ở trạng thái Nháp.
+Ngoại lệ | 2.1 Không có danh mục đang hoạt động.2.1.1 Hệ thống thông báo "Hãy tạo danh mục trước (UC08.7)" và không mở biểu mẫu.6.1 Thiếu trường bắt buộc, vượt độ dài, niên đại bắt đầu lớn hơn niên đại kết thúc, thiếu xuất xứ hoặc nguồn thu nhận.6.1.1 Hệ thống báo lỗi từng trường, giữ dữ liệu đã nhập và không tạo gì.6.2 Ảnh sai loại (kiểm tra nội dung thực, không chỉ phần mở rộng), lớn hơn 5 MB, nhiều hơn 5 ảnh hoặc không có ảnh nào.6.2.1 Hệ thống từ chối ảnh và báo ở vùng ảnh; các ảnh hợp lệ khác vẫn giữ trên biểu mẫu.6.3 Danh mục vừa bị ẩn trong lúc Admin nhập.6.3.1 Hệ thống thông báo "Danh mục không còn hoạt động".7.1 Lỗi cơ sở dữ liệu hoặc kho ảnh khi lưu.7.1.1 Hệ thống hoàn tác toàn bộ, xóa tệp đã ghi và thông báo "Không lưu được, vui lòng thử lại"; không để lại hiện vật dở dang.9.1 Admin lưu hai lần liên tiếp.9.1.1 Nếu sinh hai bản thì bản dư là DRAFT chưa giám định nên xóa được (UC08.5).
+Thành phần
+Nội dung
+Tên Use Case
+UC08.1 – Thêm hồ sơ hiện vật
+Tác nhân chính
+Admin
+Tiền điều kiện
+Đã đăng nhập; có ít nhất một danh mục đang hoạt động (BR05d)
+Đảm bảo tối thiểu
+Khi có lỗi: không có AntiqueItem, ProvenanceRecord, ItemImage, tệp ảnh hay AuditLog nào được tạo; dữ liệu đã nhập vẫn còn trên biểu mẫu
+Hậu điều kiện
+Một AntiqueItem ở DRAFT với mã HV-xxxx, version 0; một ProvenanceRecord; 1 đến 5 ItemImage với đúng một ảnh đại diện; AuditLog ITEM_CREATE, tất cả trong một giao dịch
+Chuỗi sự kiện chính
+1. Admin chọn chức năng Thêm hiện vật.
+2. Hệ thống hiển thị biểu mẫu kèm danh sách danh mục đang hoạt động.
+3. Admin nhập thông tin hiện vật và hồ sơ nguồn gốc.
+4. Admin chọn 1 đến 5 ảnh và chỉ định ảnh đại diện (mặc định là ảnh đầu).
+5. Admin chọn Lưu nháp.
+6. Hệ thống kiểm tra dữ liệu theo BR05a đến BR05d (độ dài, trường bắt buộc, niên đại, xuất xứ và nguồn thu nhận, danh mục đang hoạt động) và kiểm tra từng ảnh (loại tệp thật, không quá 5 MB, số lượng).
+7. Hệ thống tạo AntiqueItem (DRAFT) với mã hiện vật duy nhất (BR05e), tạo ProvenanceRecord và các ItemImage, lưu tệp ảnh.
+8. Hệ thống ghi AuditLog ITEM_CREATE trong cùng giao dịch.
+9. Hệ thống thông báo "Đã lưu hiện vật HV-xxxx" và hiển thị hiện vật ở trạng thái Nháp.
+Ngoại lệ
+2.1 Không có danh mục đang hoạt động.
+2.1.1 Hệ thống thông báo "Hãy tạo danh mục trước (UC08.7)" và không mở biểu mẫu.
+6.1 Thiếu trường bắt buộc, vượt độ dài, niên đại bắt đầu lớn hơn niên đại kết thúc, thiếu xuất xứ hoặc nguồn thu nhận.
+6.1.1 Hệ thống báo lỗi từng trường, giữ dữ liệu đã nhập và không tạo gì.
+6.2 Ảnh sai loại (kiểm tra nội dung thực, không chỉ phần mở rộng), lớn hơn 5 MB, nhiều hơn 5 ảnh hoặc không có ảnh nào.
+6.2.1 Hệ thống từ chối ảnh và báo ở vùng ảnh; các ảnh hợp lệ khác vẫn giữ trên biểu mẫu.
+6.3 Danh mục vừa bị ẩn trong lúc Admin nhập.
+6.3.1 Hệ thống thông báo "Danh mục không còn hoạt động".
+7.1 Lỗi cơ sở dữ liệu hoặc kho ảnh khi lưu.
+7.1.1 Hệ thống hoàn tác toàn bộ, xóa tệp đã ghi và thông báo "Không lưu được, vui lòng thử lại"; không để lại hiện vật dở dang.
+9.1 Admin lưu hai lần liên tiếp.
+9.1.1 Nếu sinh hai bản thì bản dư là DRAFT chưa giám định nên xóa được (UC08.5).
+UC08.2. Sửa hồ sơ và quản lý ảnh
+Thành phần | Nội dung
+Tên Use Case | UC08.2 – Sửa hồ sơ và quản lý ảnh
+Tác nhân chính | Admin
+Tiền điều kiện | Đã đăng nhập; hiện vật chưa lưu trữ, ở một trong các trạng thái DRAFT, APPRAISED_PASSED, APPRAISED_REJECTED, AVAILABLE; không có phiên chưa kết thúc (DRAFT, SCHEDULED, ACTIVE) (BR07e)
+Đảm bảo tối thiểu | Khi có lỗi hoặc xung đột: hiện vật, ảnh, chứng thư và trạng thái giữ nguyên; tệp ảnh cũ vẫn còn; tệp ảnh mới ghi dở bị xóa
+Hậu điều kiện | Hồ sơ và ảnh được cập nhật, version tăng. Nếu đổi trường định danh của hiện vật có chứng thư VALID và Admin đã xác nhận: chứng thư REVOKED, hiện vật về DRAFT. Ghi AuditLog ITEM_UPDATE (và CERTIFICATE_REVOKE nếu có thu hồi)
+Chuỗi sự kiện chính | 1. Admin chọn chức năng Sửa trên một hiện vật.2. Hệ thống kiểm tra điều kiện sửa được (BR07e, gồm kiểm tra phiên chưa kết thúc) và hiển thị dữ liệu hiện tại.3. Admin chỉnh thông tin, thêm ảnh, xóa ảnh, đổi ảnh đại diện.4. Admin chọn Lưu.5. Hệ thống kiểm tra dữ liệu theo BR05 và kiểm tra hiện vật chưa bị người khác thay đổi từ lúc Admin mở.6. Hệ thống xác định thay đổi có chạm trường định danh (tên, niên đại, chất liệu, kích thước, tình trạng, hồ sơ nguồn gốc, ảnh) hay không.7. Nếu hiện vật có chứng thư VALID và thay đổi chạm trường định danh, hệ thống yêu cầu xác nhận "Sửa sẽ thu hồi chứng thư và đưa hiện vật về Nháp"; Admin xác nhận.8. Hệ thống cập nhật hồ sơ và ảnh; nếu đã xác nhận thì thu hồi chứng thư và đưa hiện vật về DRAFT; ghi AuditLog; tất cả trong một giao dịch. Sau khi hoàn tất mới xóa các tệp ảnh bị gỡ.9. Hệ thống thông báo "Đã lưu thay đổi"; nếu hiện vật bị đưa về Nháp thì nêu rõ hiện vật không còn công khai.
+Ngoại lệ | 2.1 Hiện vật ở IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING hoặc SOLD_DELIVERED.2.1.1 Hệ thống thông báo không sửa được; chức năng Sửa không được hiển thị nhưng hệ thống vẫn kiểm tra khi nhận thao tác.2.2 Có phiên chưa kết thúc (DRAFT, SCHEDULED, ACTIVE).2.2.1 Hệ thống thông báo "Hãy hủy phiên hoặc chờ phiên kết thúc (UC11)".2.3 Hiện vật đã lưu trữ.2.3.1 Hệ thống yêu cầu khôi phục trước (UC08.6).5.1 Hiện vật đã bị thay đổi từ lúc Admin mở (hai Admin cùng sửa, hoặc trạng thái vừa đổi).5.1.1 Hệ thống không ghi đè và yêu cầu Admin tải lại dữ liệu.5.2 Dữ liệu hoặc ảnh không hợp lệ (như 6.1 và 6.2 của UC08.1), hoặc xóa hết ảnh.5.2.1 Hệ thống báo lỗi và không lưu; xóa hết ảnh bị từ chối vì phải còn ít nhất một ảnh.7.1 Admin hủy ở bước xác nhận.7.1.1 Hệ thống không đổi gì.7.2 Chỉ sửa mô tả hoặc danh mục (không chạm trường định danh).7.2.1 Hệ thống lưu ngay, giữ trạng thái và chứng thư.7.3 Hiện vật APPRAISED_REJECTED (không có chứng thư).7.3.1 Hệ thống lưu ngay, giữ APPRAISED_REJECTED, không cần xác nhận; Admin có thể giám định lại ngay (BR06e).8.1 Lỗi khi lưu.8.1.1 Hệ thống hoàn tác toàn bộ (kể cả thu hồi chứng thư), xóa tệp mới ghi và giữ tệp cũ.
+Thành phần
+Nội dung
+Tên Use Case
+UC08.2 – Sửa hồ sơ và quản lý ảnh
+Tác nhân chính
+Admin
+Tiền điều kiện
+Đã đăng nhập; hiện vật chưa lưu trữ, ở một trong các trạng thái DRAFT, APPRAISED_PASSED, APPRAISED_REJECTED, AVAILABLE; không có phiên chưa kết thúc (DRAFT, SCHEDULED, ACTIVE) (BR07e)
+Đảm bảo tối thiểu
+Khi có lỗi hoặc xung đột: hiện vật, ảnh, chứng thư và trạng thái giữ nguyên; tệp ảnh cũ vẫn còn; tệp ảnh mới ghi dở bị xóa
+Hậu điều kiện
+Hồ sơ và ảnh được cập nhật, version tăng. Nếu đổi trường định danh của hiện vật có chứng thư VALID và Admin đã xác nhận: chứng thư REVOKED, hiện vật về DRAFT. Ghi AuditLog ITEM_UPDATE (và CERTIFICATE_REVOKE nếu có thu hồi)
+Chuỗi sự kiện chính
+1. Admin chọn chức năng Sửa trên một hiện vật.
+2. Hệ thống kiểm tra điều kiện sửa được (BR07e, gồm kiểm tra phiên chưa kết thúc) và hiển thị dữ liệu hiện tại.
+3. Admin chỉnh thông tin, thêm ảnh, xóa ảnh, đổi ảnh đại diện.
+4. Admin chọn Lưu.
+5. Hệ thống kiểm tra dữ liệu theo BR05 và kiểm tra hiện vật chưa bị người khác thay đổi từ lúc Admin mở.
+6. Hệ thống xác định thay đổi có chạm trường định danh (tên, niên đại, chất liệu, kích thước, tình trạng, hồ sơ nguồn gốc, ảnh) hay không.
+7. Nếu hiện vật có chứng thư VALID và thay đổi chạm trường định danh, hệ thống yêu cầu xác nhận "Sửa sẽ thu hồi chứng thư và đưa hiện vật về Nháp"; Admin xác nhận.
+8. Hệ thống cập nhật hồ sơ và ảnh; nếu đã xác nhận thì thu hồi chứng thư và đưa hiện vật về DRAFT; ghi AuditLog; tất cả trong một giao dịch. Sau khi hoàn tất mới xóa các tệp ảnh bị gỡ.
+9. Hệ thống thông báo "Đã lưu thay đổi"; nếu hiện vật bị đưa về Nháp thì nêu rõ hiện vật không còn công khai.
+Ngoại lệ
+2.1 Hiện vật ở IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING hoặc SOLD_DELIVERED.
+2.1.1 Hệ thống thông báo không sửa được; chức năng Sửa không được hiển thị nhưng hệ thống vẫn kiểm tra khi nhận thao tác.
+2.2 Có phiên chưa kết thúc (DRAFT, SCHEDULED, ACTIVE).
+2.2.1 Hệ thống thông báo "Hãy hủy phiên hoặc chờ phiên kết thúc (UC11)".
+2.3 Hiện vật đã lưu trữ.
+2.3.1 Hệ thống yêu cầu khôi phục trước (UC08.6).
+5.1 Hiện vật đã bị thay đổi từ lúc Admin mở (hai Admin cùng sửa, hoặc trạng thái vừa đổi).
+5.1.1 Hệ thống không ghi đè và yêu cầu Admin tải lại dữ liệu.
+5.2 Dữ liệu hoặc ảnh không hợp lệ (như 6.1 và 6.2 của UC08.1), hoặc xóa hết ảnh.
+5.2.1 Hệ thống báo lỗi và không lưu; xóa hết ảnh bị từ chối vì phải còn ít nhất một ảnh.
+7.1 Admin hủy ở bước xác nhận.
+7.1.1 Hệ thống không đổi gì.
+7.2 Chỉ sửa mô tả hoặc danh mục (không chạm trường định danh).
+7.2.1 Hệ thống lưu ngay, giữ trạng thái và chứng thư.
+7.3 Hiện vật APPRAISED_REJECTED (không có chứng thư).
+7.3.1 Hệ thống lưu ngay, giữ APPRAISED_REJECTED, không cần xác nhận; Admin có thể giám định lại ngay (BR06e).
+8.1 Lỗi khi lưu.
+8.1.1 Hệ thống hoàn tác toàn bộ (kể cả thu hồi chứng thư), xóa tệp mới ghi và giữ tệp cũ.
+UC08.3. Niêm yết hiện vật
+Thành phần | Nội dung
+Tên Use Case | UC08.3 – Niêm yết hiện vật
+Tác nhân chính | Admin
+Tiền điều kiện | Hiện vật APPRAISED_PASSED, chưa lưu trữ, có chứng thư VALID; danh mục của hiện vật đang hoạt động (BR07a)
+Đảm bảo tối thiểu | Khi từ chối: trạng thái giữ nguyên, không có AuditLog
+Hậu điều kiện | Hiện vật AVAILABLE, hiện công khai và đủ điều kiện để UC11 tạo phiên; AuditLog ITEM_PUBLISH
+Chuỗi sự kiện chính | 1. Admin chọn chức năng Niêm yết trên một hiện vật APPRAISED_PASSED.2. Hệ thống hiển thị thông tin xem trước (ảnh đại diện, danh mục, chứng thư) và yêu cầu xác nhận.3. Admin xác nhận.4. Hệ thống kiểm tra lại trạng thái, chứng thư VALID và danh mục đang hoạt động.5. Hệ thống chuyển hiện vật sang AVAILABLE và ghi AuditLog ITEM_PUBLISH.6. Hệ thống thông báo "Đã niêm yết hiện vật HV-xxxx".
+Ngoại lệ | 4.1 Trạng thái không phải APPRAISED_PASSED (đã niêm yết hoặc chưa giám định đạt).4.1.1 Hệ thống từ chối và nêu trạng thái hiện tại; nếu Admin xác nhận hai lần liên tiếp thì chỉ một lần thành công.4.2 Không có chứng thư VALID hoặc danh mục đang bị ẩn.4.2.1 Hệ thống từ chối kèm lý do; với danh mục ẩn, gợi ý đổi danh mục (UC08.2) hoặc hiện lại danh mục (UC08.7).
+Thành phần
+Nội dung
+Tên Use Case
+UC08.3 – Niêm yết hiện vật
+Tác nhân chính
+Admin
+Tiền điều kiện
+Hiện vật APPRAISED_PASSED, chưa lưu trữ, có chứng thư VALID; danh mục của hiện vật đang hoạt động (BR07a)
+Đảm bảo tối thiểu
+Khi từ chối: trạng thái giữ nguyên, không có AuditLog
+Hậu điều kiện
+Hiện vật AVAILABLE, hiện công khai và đủ điều kiện để UC11 tạo phiên; AuditLog ITEM_PUBLISH
+Chuỗi sự kiện chính
+1. Admin chọn chức năng Niêm yết trên một hiện vật APPRAISED_PASSED.
+2. Hệ thống hiển thị thông tin xem trước (ảnh đại diện, danh mục, chứng thư) và yêu cầu xác nhận.
+3. Admin xác nhận.
+4. Hệ thống kiểm tra lại trạng thái, chứng thư VALID và danh mục đang hoạt động.
+5. Hệ thống chuyển hiện vật sang AVAILABLE và ghi AuditLog ITEM_PUBLISH.
+6. Hệ thống thông báo "Đã niêm yết hiện vật HV-xxxx".
+Ngoại lệ
+4.1 Trạng thái không phải APPRAISED_PASSED (đã niêm yết hoặc chưa giám định đạt).
+4.1.1 Hệ thống từ chối và nêu trạng thái hiện tại; nếu Admin xác nhận hai lần liên tiếp thì chỉ một lần thành công.
+4.2 Không có chứng thư VALID hoặc danh mục đang bị ẩn.
+4.2.1 Hệ thống từ chối kèm lý do; với danh mục ẩn, gợi ý đổi danh mục (UC08.2) hoặc hiện lại danh mục (UC08.7).
+UC08.4. Gỡ niêm yết hiện vật
+Thành phần | Nội dung
+Tên Use Case | UC08.4 – Gỡ niêm yết hiện vật
+Tác nhân chính | Admin
+Tiền điều kiện | Hiện vật AVAILABLE và không có phiên chưa kết thúc (BR07b)
+Đảm bảo tối thiểu | Khi từ chối: trạng thái giữ nguyên, không có AuditLog
+Hậu điều kiện | Hiện vật về APPRAISED_PASSED, biến khỏi danh mục công khai; AuditLog ITEM_UNPUBLISH
+Chuỗi sự kiện chính | 1. Admin chọn chức năng Gỡ niêm yết trên một hiện vật AVAILABLE.2. Hệ thống yêu cầu xác nhận và nêu hậu quả: hiện vật không còn công khai.3. Admin xác nhận.4. Hệ thống kiểm tra hiện vật vẫn AVAILABLE và không có phiên chưa kết thúc.5. Hệ thống chuyển hiện vật về APPRAISED_PASSED và ghi AuditLog ITEM_UNPUBLISH.6. Hệ thống thông báo "Đã gỡ niêm yết".
+Ngoại lệ | 4.1 Có phiên DRAFT, SCHEDULED hoặc ACTIVE.4.1.1 Hệ thống từ chối và thông báo "Hiện vật đang có phiên, hãy hủy phiên trước (UC11)".4.2 Trạng thái đã đổi (ví dụ phiên vừa được mở nên hiện vật đã IN_AUCTION).4.2.1 Hệ thống từ chối và yêu cầu Admin tải lại.
+Thành phần
+Nội dung
+Tên Use Case
+UC08.4 – Gỡ niêm yết hiện vật
+Tác nhân chính
+Admin
+Tiền điều kiện
+Hiện vật AVAILABLE và không có phiên chưa kết thúc (BR07b)
+Đảm bảo tối thiểu
+Khi từ chối: trạng thái giữ nguyên, không có AuditLog
+Hậu điều kiện
+Hiện vật về APPRAISED_PASSED, biến khỏi danh mục công khai; AuditLog ITEM_UNPUBLISH
+Chuỗi sự kiện chính
+1. Admin chọn chức năng Gỡ niêm yết trên một hiện vật AVAILABLE.
+2. Hệ thống yêu cầu xác nhận và nêu hậu quả: hiện vật không còn công khai.
+3. Admin xác nhận.
+4. Hệ thống kiểm tra hiện vật vẫn AVAILABLE và không có phiên chưa kết thúc.
+5. Hệ thống chuyển hiện vật về APPRAISED_PASSED và ghi AuditLog ITEM_UNPUBLISH.
+6. Hệ thống thông báo "Đã gỡ niêm yết".
+Ngoại lệ
+4.1 Có phiên DRAFT, SCHEDULED hoặc ACTIVE.
+4.1.1 Hệ thống từ chối và thông báo "Hiện vật đang có phiên, hãy hủy phiên trước (UC11)".
+4.2 Trạng thái đã đổi (ví dụ phiên vừa được mở nên hiện vật đã IN_AUCTION).
+4.2.1 Hệ thống từ chối và yêu cầu Admin tải lại.
+UC08.5. Xóa hiện vật nháp
+Thành phần | Nội dung
+Tên Use Case | UC08.5 – Xóa hiện vật nháp
+Tác nhân chính | Admin
+Tiền điều kiện | Hiện vật DRAFT và chưa từng có bản ghi giám định (BR07d)
+Đảm bảo tối thiểu | Khi từ chối hoặc lỗi: hiện vật, nguồn gốc, ảnh và tệp giữ nguyên
+Hậu điều kiện | AntiqueItem, ProvenanceRecord, ItemImage bị xóa hẳn; tệp ảnh bị xóa sau commit; AuditLog ITEM_DELETE giữ lại mã và tên hiện vật trong phần chi tiết
+Chuỗi sự kiện chính | 1. Admin chọn chức năng Xóa trên một hiện vật DRAFT.2. Hệ thống yêu cầu xác nhận và nêu hậu quả: xóa hẳn hồ sơ, nguồn gốc và ảnh, không khôi phục được.3. Admin xác nhận.4. Hệ thống kiểm tra hiện vật là DRAFT và chưa từng giám định.5. Hệ thống xóa ItemImage, ProvenanceRecord, AntiqueItem và ghi AuditLog ITEM_DELETE.6. Hệ thống xóa các tệp ảnh và thông báo "Đã xóa".
+Ngoại lệ | 4.1 Hiện vật không ở DRAFT, hoặc đã từng giám định.4.1.1 Hệ thống từ chối và thông báo "Chỉ có thể lưu trữ"; chức năng Xóa không được hiển thị, gọi trực tiếp vẫn bị từ chối. Cơ sở dữ liệu cũng chặn bằng khóa ngoại RESTRICT từ bản ghi giám định.6.1 Xóa tệp ảnh bị lỗi.6.1.1 Hệ thống ghi nhận tệp mồ côi để dọn sau, không hoàn tác việc xóa dữ liệu.
+Thành phần
+Nội dung
+Tên Use Case
+UC08.5 – Xóa hiện vật nháp
+Tác nhân chính
+Admin
+Tiền điều kiện
+Hiện vật DRAFT và chưa từng có bản ghi giám định (BR07d)
+Đảm bảo tối thiểu
+Khi từ chối hoặc lỗi: hiện vật, nguồn gốc, ảnh và tệp giữ nguyên
+Hậu điều kiện
+AntiqueItem, ProvenanceRecord, ItemImage bị xóa hẳn; tệp ảnh bị xóa sau commit; AuditLog ITEM_DELETE giữ lại mã và tên hiện vật trong phần chi tiết
+Chuỗi sự kiện chính
+1. Admin chọn chức năng Xóa trên một hiện vật DRAFT.
+2. Hệ thống yêu cầu xác nhận và nêu hậu quả: xóa hẳn hồ sơ, nguồn gốc và ảnh, không khôi phục được.
+3. Admin xác nhận.
+4. Hệ thống kiểm tra hiện vật là DRAFT và chưa từng giám định.
+5. Hệ thống xóa ItemImage, ProvenanceRecord, AntiqueItem và ghi AuditLog ITEM_DELETE.
+6. Hệ thống xóa các tệp ảnh và thông báo "Đã xóa".
+Ngoại lệ
+4.1 Hiện vật không ở DRAFT, hoặc đã từng giám định.
+4.1.1 Hệ thống từ chối và thông báo "Chỉ có thể lưu trữ"; chức năng Xóa không được hiển thị, gọi trực tiếp vẫn bị từ chối. Cơ sở dữ liệu cũng chặn bằng khóa ngoại RESTRICT từ bản ghi giám định.
+6.1 Xóa tệp ảnh bị lỗi.
+6.1.1 Hệ thống ghi nhận tệp mồ côi để dọn sau, không hoàn tác việc xóa dữ liệu.
+UC08.6. Lưu trữ và khôi phục hiện vật
+Thành phần | Nội dung
+Tên Use Case | UC08.6 – Lưu trữ và khôi phục hiện vật
+Tác nhân chính | Admin
+Tiền điều kiện | Lưu trữ: isArchived = false và hiện vật ở DRAFT đã từng giám định, APPRAISED_REJECTED hoặc SOLD_DELIVERED. Khôi phục: isArchived = true
+Đảm bảo tối thiểu | Khi từ chối: cờ và trạng thái giữ nguyên
+Hậu điều kiện | Cờ isArchived đổi; trạng thái ItemStatus không đổi; AuditLog ITEM_ARCHIVE hoặc ITEM_RESTORE
+Chuỗi sự kiện chính | Luồng sự kiện chính (lưu trữ)1. Admin chọn chức năng Lưu trữ trên hiện vật đủ điều kiện.2. Hệ thống yêu cầu xác nhận: hiện vật sẽ ẩn khỏi danh sách quản lý mặc định.3. Admin xác nhận.4. Hệ thống kiểm tra trạng thái, đặt isArchived = true và ghi AuditLog ITEM_ARCHIVE.5. Hệ thống thông báo "Đã lưu trữ".Luồng sự kiện chính (khôi phục)R1. Admin chọn hiển thị cả hiện vật đã lưu trữ rồi chọn chức năng Khôi phục.R2. Hệ thống đặt isArchived = false và ghi AuditLog ITEM_RESTORE.R3. Hệ thống thông báo "Đã khôi phục".
+Ngoại lệ | 4.1 Trạng thái không cho phép lưu trữ (AVAILABLE, IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING, APPRAISED_PASSED, hoặc DRAFT chưa từng giám định).4.1.1 Hệ thống từ chối.4.2 Lưu trữ lại hiện vật đã lưu trữ, hoặc khôi phục hiện vật chưa lưu trữ.4.2.1 Hệ thống báo thành công, không đổi gì và không ghi thêm nhật ký.4.3 Lưu trữ hiện vật SOLD_DELIVERED.4.3.1 Hiện vật vẫn hiển thị trong danh mục công khai; chỉ ẩn khỏi danh sách quản lý mặc định.
+Thành phần
+Nội dung
+Tên Use Case
+UC08.6 – Lưu trữ và khôi phục hiện vật
+Tác nhân chính
+Admin
+Tiền điều kiện
+Lưu trữ: isArchived = false và hiện vật ở DRAFT đã từng giám định, APPRAISED_REJECTED hoặc SOLD_DELIVERED. Khôi phục: isArchived = true
+Đảm bảo tối thiểu
+Khi từ chối: cờ và trạng thái giữ nguyên
+Hậu điều kiện
+Cờ isArchived đổi; trạng thái ItemStatus không đổi; AuditLog ITEM_ARCHIVE hoặc ITEM_RESTORE
+Chuỗi sự kiện chính
+Luồng sự kiện chính (lưu trữ)
+1. Admin chọn chức năng Lưu trữ trên hiện vật đủ điều kiện.
+2. Hệ thống yêu cầu xác nhận: hiện vật sẽ ẩn khỏi danh sách quản lý mặc định.
+3. Admin xác nhận.
+4. Hệ thống kiểm tra trạng thái, đặt isArchived = true và ghi AuditLog ITEM_ARCHIVE.
+5. Hệ thống thông báo "Đã lưu trữ".
+Luồng sự kiện chính (khôi phục)
+R1. Admin chọn hiển thị cả hiện vật đã lưu trữ rồi chọn chức năng Khôi phục.
+R2. Hệ thống đặt isArchived = false và ghi AuditLog ITEM_RESTORE.
+R3. Hệ thống thông báo "Đã khôi phục".
+Ngoại lệ
+4.1 Trạng thái không cho phép lưu trữ (AVAILABLE, IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING, APPRAISED_PASSED, hoặc DRAFT chưa từng giám định).
+4.1.1 Hệ thống từ chối.
+4.2 Lưu trữ lại hiện vật đã lưu trữ, hoặc khôi phục hiện vật chưa lưu trữ.
+4.2.1 Hệ thống báo thành công, không đổi gì và không ghi thêm nhật ký.
+4.3 Lưu trữ hiện vật SOLD_DELIVERED.
+4.3.1 Hiện vật vẫn hiển thị trong danh mục công khai; chỉ ẩn khỏi danh sách quản lý mặc định.
+UC08.7. Quản lý danh mục
+Thành phần | Nội dung
+Tên Use Case | UC08.7 – Quản lý danh mục
+Tác nhân chính | Admin
+Tiền điều kiện | Đã đăng nhập
+Đảm bảo tối thiểu | Khi từ chối: danh mục và hiện vật giữ nguyên
+Hậu điều kiện | Danh mục được thêm, đổi tên, ẩn hoặc hiện lại; AuditLog CATEGORY_CREATE, CATEGORY_RENAME, CATEGORY_HIDE hoặc CATEGORY_RESTORE
+Chuỗi sự kiện chính | Luồng sự kiện chính (thêm danh mục)1. Admin chọn chức năng Quản lý danh mục.2. Hệ thống hiển thị danh sách danh mục (cả hoạt động và đã ẩn) kèm số hiện vật.3. Admin nhập tên danh mục và chọn Thêm.4. Hệ thống kiểm tra tên không rỗng và không trùng (không phân biệt hoa thường), tạo danh mục hoạt động và ghi AuditLog CATEGORY_CREATE.5. Hệ thống hiển thị lại danh sách danh mục.Luồng thay thế: đổi tên, ẩn, hiện lạiR1. Đổi tên: Admin chọn danh mục và nhập tên mới; hệ thống kiểm tra như bước 4, cập nhật và ghi CATEGORY_RENAME.H1. Ẩn: Admin chọn Ẩn; hệ thống đếm hiện vật AVAILABLE hoặc IN_AUCTION thuộc danh mục; nếu bằng 0 thì đặt isActive = false và ghi CATEGORY_HIDE.S1. Hiện lại: Admin chọn Hiện lại; hệ thống đặt isActive = true và ghi CATEGORY_RESTORE.
+Ngoại lệ | 4.1 Tên rỗng hoặc chỉ gồm khoảng trắng.4.1.1 Hệ thống báo lỗi và không lưu.4.2 Tên trùng danh mục khác.4.2.1 Hệ thống thông báo "Tên danh mục đã tồn tại".H1.1 Còn hiện vật AVAILABLE hoặc IN_AUCTION trong danh mục.H1.1.1 Hệ thống từ chối kèm số hiện vật; Admin gỡ niêm yết hoặc đổi danh mục của chúng trước.X.1 Xóa danh mục.X.1.1 Hệ thống không có chức năng xóa danh mục; gọi trực tiếp bị từ chối. Danh mục ẩn vẫn hiển thị trên các hiện vật đã gắn nhưng không được chọn cho hiện vật mới.
+Thành phần
+Nội dung
+Tên Use Case
+UC08.7 – Quản lý danh mục
+Tác nhân chính
+Admin
+Tiền điều kiện
+Đã đăng nhập
+Đảm bảo tối thiểu
+Khi từ chối: danh mục và hiện vật giữ nguyên
+Hậu điều kiện
+Danh mục được thêm, đổi tên, ẩn hoặc hiện lại; AuditLog CATEGORY_CREATE, CATEGORY_RENAME, CATEGORY_HIDE hoặc CATEGORY_RESTORE
+Chuỗi sự kiện chính
+Luồng sự kiện chính (thêm danh mục)
+1. Admin chọn chức năng Quản lý danh mục.
+2. Hệ thống hiển thị danh sách danh mục (cả hoạt động và đã ẩn) kèm số hiện vật.
+3. Admin nhập tên danh mục và chọn Thêm.
+4. Hệ thống kiểm tra tên không rỗng và không trùng (không phân biệt hoa thường), tạo danh mục hoạt động và ghi AuditLog CATEGORY_CREATE.
+5. Hệ thống hiển thị lại danh sách danh mục.
+Luồng thay thế: đổi tên, ẩn, hiện lại
+R1. Đổi tên: Admin chọn danh mục và nhập tên mới; hệ thống kiểm tra như bước 4, cập nhật và ghi CATEGORY_RENAME.
+H1. Ẩn: Admin chọn Ẩn; hệ thống đếm hiện vật AVAILABLE hoặc IN_AUCTION thuộc danh mục; nếu bằng 0 thì đặt isActive = false và ghi CATEGORY_HIDE.
+S1. Hiện lại: Admin chọn Hiện lại; hệ thống đặt isActive = true và ghi CATEGORY_RESTORE.
+Ngoại lệ
+4.1 Tên rỗng hoặc chỉ gồm khoảng trắng.
+4.1.1 Hệ thống báo lỗi và không lưu.
+4.2 Tên trùng danh mục khác.
+4.2.1 Hệ thống thông báo "Tên danh mục đã tồn tại".
+H1.1 Còn hiện vật AVAILABLE hoặc IN_AUCTION trong danh mục.
+H1.1.1 Hệ thống từ chối kèm số hiện vật; Admin gỡ niêm yết hoặc đổi danh mục của chúng trước.
+X.1 Xóa danh mục.
+X.1.1 Hệ thống không có chức năng xóa danh mục; gọi trực tiếp bị từ chối. Danh mục ẩn vẫn hiển thị trên các hiện vật đã gắn nhưng không được chọn cho hiện vật mới.
+UC09. Giám định hiện vật và cấp chứng thư
+Thành phần | Nội dung
+Tên Use Case | UC09 – Giám định hiện vật và cấp chứng thư
+Tác nhân chính | Admin
+Tiền điều kiện | Đã đăng nhập; hiện vật DRAFT hoặc APPRAISED_REJECTED và chưa lưu trữ (BR06e)
+Đảm bảo tối thiểu | Khi có lỗi: không có bản ghi giám định, chứng thư hay thay đổi trạng thái nào
+Hậu điều kiện | Một bản ghi giám định mới (chỉ thêm). PASSED: có chứng thư số duy nhất, VALID; hiện vật APPRAISED_PASSED. REJECTED: không có chứng thư; hiện vật APPRAISED_REJECTED. AuditLog APPRAISAL_RECORD; tất cả trong một giao dịch
+Chuỗi sự kiện chính | 1. Admin chọn chức năng Giám định trên một hiện vật DRAFT hoặc APPRAISED_REJECTED.2. Hệ thống kiểm tra điều kiện (BR06e), hiển thị hồ sơ hiện vật, lịch sử giám định và biểu mẫu giám định.3. Admin nhập kết quả (PASSED hoặc REJECTED), tên người giám định, ngày giám định, ghi chú, ước giá thấp và cao.4. Admin chọn Lưu kết quả.5. Hệ thống kiểm tra dữ liệu theo BR06a (ngày không ở tương lai, ước giá thấp nhỏ hơn hoặc bằng ước giá cao) và kiểm tra hiện vật chưa bị thay đổi từ lúc Admin mở.6. Hệ thống tạo bản ghi giám định (chỉ thêm, BR06c). Nếu PASSED: sinh chứng thư số duy nhất, trạng thái VALID và chuyển hiện vật sang APPRAISED_PASSED; nếu REJECTED: chuyển hoặc giữ hiện vật ở APPRAISED_REJECTED. Hệ thống ghi AuditLog APPRAISAL_RECORD; tất cả trong một giao dịch.7. Hệ thống hiển thị kết quả kèm số chứng thư nếu có.Luồng thay thế A1: xem lịch sử giám địnhA1.1 Admin chọn chức năng Lịch sử giám định của một hiện vật.A1.2 Hệ thống hiển thị mọi bản ghi, mới nhất trước, kèm trạng thái chứng thư (VALID hoặc REVOKED), ước giá và ghi chú nội bộ.
+Ngoại lệ | 2.1 Hiện vật không ở DRAFT hoặc APPRAISED_REJECTED, hoặc đã lưu trữ.2.1.1 Hệ thống từ chối và nêu lý do.5.1 Thiếu người giám định hoặc ngày, ngày ở tương lai, ước giá thấp lớn hơn cao, ước giá âm hoặc có phần lẻ.5.1.1 Hệ thống báo lỗi và không lưu.5.2 Hiện vật đã bị thay đổi từ lúc Admin mở (lưu hai lần, hoặc Admin khác vừa giám định).5.2.1 Hệ thống không tạo bản ghi thứ hai và yêu cầu Admin tải lại.6.1 Số chứng thư trùng (rất hiếm).6.1.1 Hệ thống sinh lại tối đa 3 lần trong cùng giao dịch; vẫn lỗi thì hoàn tác và báo thử lại.6.2 Lỗi cơ sở dữ liệu.6.2.1 Hệ thống hoàn tác toàn bộ; hiện vật giữ nguyên trạng thái.
+Thành phần
+Nội dung
+Tên Use Case
+UC09 – Giám định hiện vật và cấp chứng thư
+Tác nhân chính
+Admin
+Tiền điều kiện
+Đã đăng nhập; hiện vật DRAFT hoặc APPRAISED_REJECTED và chưa lưu trữ (BR06e)
+Đảm bảo tối thiểu
+Khi có lỗi: không có bản ghi giám định, chứng thư hay thay đổi trạng thái nào
+Hậu điều kiện
+Một bản ghi giám định mới (chỉ thêm). PASSED: có chứng thư số duy nhất, VALID; hiện vật APPRAISED_PASSED. REJECTED: không có chứng thư; hiện vật APPRAISED_REJECTED. AuditLog APPRAISAL_RECORD; tất cả trong một giao dịch
+Chuỗi sự kiện chính
+1. Admin chọn chức năng Giám định trên một hiện vật DRAFT hoặc APPRAISED_REJECTED.
+2. Hệ thống kiểm tra điều kiện (BR06e), hiển thị hồ sơ hiện vật, lịch sử giám định và biểu mẫu giám định.
+3. Admin nhập kết quả (PASSED hoặc REJECTED), tên người giám định, ngày giám định, ghi chú, ước giá thấp và cao.
+4. Admin chọn Lưu kết quả.
+5. Hệ thống kiểm tra dữ liệu theo BR06a (ngày không ở tương lai, ước giá thấp nhỏ hơn hoặc bằng ước giá cao) và kiểm tra hiện vật chưa bị thay đổi từ lúc Admin mở.
+6. Hệ thống tạo bản ghi giám định (chỉ thêm, BR06c). Nếu PASSED: sinh chứng thư số duy nhất, trạng thái VALID và chuyển hiện vật sang APPRAISED_PASSED; nếu REJECTED: chuyển hoặc giữ hiện vật ở APPRAISED_REJECTED. Hệ thống ghi AuditLog APPRAISAL_RECORD; tất cả trong một giao dịch.
+7. Hệ thống hiển thị kết quả kèm số chứng thư nếu có.
+Luồng thay thế A1: xem lịch sử giám định
+A1.1 Admin chọn chức năng Lịch sử giám định của một hiện vật.
+A1.2 Hệ thống hiển thị mọi bản ghi, mới nhất trước, kèm trạng thái chứng thư (VALID hoặc REVOKED), ước giá và ghi chú nội bộ.
+Ngoại lệ
+2.1 Hiện vật không ở DRAFT hoặc APPRAISED_REJECTED, hoặc đã lưu trữ.
+2.1.1 Hệ thống từ chối và nêu lý do.
+5.1 Thiếu người giám định hoặc ngày, ngày ở tương lai, ước giá thấp lớn hơn cao, ước giá âm hoặc có phần lẻ.
+5.1.1 Hệ thống báo lỗi và không lưu.
+5.2 Hiện vật đã bị thay đổi từ lúc Admin mở (lưu hai lần, hoặc Admin khác vừa giám định).
+5.2.1 Hệ thống không tạo bản ghi thứ hai và yêu cầu Admin tải lại.
+6.1 Số chứng thư trùng (rất hiếm).
+6.1.1 Hệ thống sinh lại tối đa 3 lần trong cùng giao dịch; vẫn lỗi thì hoàn tác và báo thử lại.
+6.2 Lỗi cơ sở dữ liệu.
+6.2.1 Hệ thống hoàn tác toàn bộ; hiện vật giữ nguyên trạng thái.
+2.4 Phác thảo giao diện
+2.4.1 Danh sách màn hình tổng và ánh xạ sang use case
+Bảng dưới liệt kê các màn hình (lớp Boundary) của toàn hệ thống và use case tương ứng.
+Boundary | Màn hình | Use case | Tác nhân
+AuthView | Đăng ký, đăng nhập | UC01, UC02 | Khách vãng lai, Khách đấu giá, Admin
+VerificationForm | Nộp và duyệt hồ sơ xác minh; cập nhật hồ sơ cá nhân | UC03, UC04, UC05 | Khách đấu giá, Admin
+CatalogueView | Danh mục hiện vật và chi tiết hiện vật | UC07 | Khách vãng lai, Khách đấu giá
+ItemManagementView | Quản lý kho hiện vật và danh mục | UC08 | Admin
+AppraisalForm | Giám định hiện vật và lịch sử | UC09 | Admin
+AuctionManagementView | Quản lý phiên: tạo, lên lịch, mở, đóng | UC11, UC12, UC15 | Admin
+AuctionRoomView | Phòng đấu giá, đặt giá | UC13, UC14; nút theo dõi của UC10 | Khách vãng lai, Khách đấu giá
+WatchlistView | Danh sách theo dõi và phiên của tôi | UC10 | Khách đấu giá
+OrderManagementView | Đơn hàng của tôi; quản lý đơn; theo dõi vận chuyển | UC16, UC19 | Khách đấu giá, Admin
+PaymentCheckoutView | Thanh toán đơn hàng | UC17 | Khách đấu giá
+ShipmentForm | Đóng gói và tạo vận đơn | UC18 | Admin
+DisputeView | Gửi khiếu nại; xử lý khiếu nại | UC20, UC21 | Khách đấu giá, Admin
+AdminDashboardView | Báo cáo thống kê; nhật ký hệ thống | UC22, UC23 | Admin
+Boundary
+Màn hình
+Use case
+Tác nhân
+AuthView
+Đăng ký, đăng nhập
+UC01, UC02
+Khách vãng lai, Khách đấu giá, Admin
+VerificationForm
+Nộp và duyệt hồ sơ xác minh; cập nhật hồ sơ cá nhân
+UC03, UC04, UC05
+Khách đấu giá, Admin
+CatalogueView
+Danh mục hiện vật và chi tiết hiện vật
+UC07
+Khách vãng lai, Khách đấu giá
+ItemManagementView
+Quản lý kho hiện vật và danh mục
+UC08
+Admin
+AppraisalForm
+Giám định hiện vật và lịch sử
+UC09
+Admin
+AuctionManagementView
+Quản lý phiên: tạo, lên lịch, mở, đóng
+UC11, UC12, UC15
+Admin
+AuctionRoomView
+Phòng đấu giá, đặt giá
+UC13, UC14; nút theo dõi của UC10
+Khách vãng lai, Khách đấu giá
+WatchlistView
+Danh sách theo dõi và phiên của tôi
+UC10
+Khách đấu giá
+OrderManagementView
+Đơn hàng của tôi; quản lý đơn; theo dõi vận chuyển
+UC16, UC19
+Khách đấu giá, Admin
+PaymentCheckoutView
+Thanh toán đơn hàng
+UC17
+Khách đấu giá
+ShipmentForm
+Đóng gói và tạo vận đơn
+UC18
+Admin
+DisputeView
+Gửi khiếu nại; xử lý khiếu nại
+UC20, UC21
+Khách đấu giá, Admin
+AdminDashboardView
+Báo cáo thống kê; nhật ký hệ thống
+UC22, UC23
+Admin
+Màn hình của module Hiện vật:
+Mã | Màn hình | Boundary | Use case | Tác nhân
+M-HV01 | Danh mục hiện vật (danh sách, tìm, lọc) | CatalogueView | UC07 | Khách vãng lai, Khách đấu giá
+M-HV02 | Chi tiết hiện vật (chế độ chi tiết của CatalogueView) | CatalogueView | UC07 | Khách vãng lai, Khách đấu giá
+M-HV03 | Quản lý hiện vật (danh sách theo trạng thái) | ItemManagementView | UC08, gồm UC08.3 đến UC08.6 | Admin
+M-HV04 | Biểu mẫu hồ sơ hiện vật (hộp thoại thêm, sửa) | ItemManagementView | UC08.1, UC08.2 | Admin
+M-HV05 | Quản lý danh mục | ItemManagementView | UC08.7 | Admin
+M-HV06 | Giám định hiện vật và lịch sử giám định | AppraisalForm | UC09 | Admin
+Mã
+Màn hình
+Boundary
+Use case
+Tác nhân
+M-HV01
+Danh mục hiện vật (danh sách, tìm, lọc)
+CatalogueView
+UC07
+Khách vãng lai, Khách đấu giá
+M-HV02
+Chi tiết hiện vật (chế độ chi tiết của CatalogueView)
+CatalogueView
+UC07
+Khách vãng lai, Khách đấu giá
+M-HV03
+Quản lý hiện vật (danh sách theo trạng thái)
+ItemManagementView
+UC08, gồm UC08.3 đến UC08.6
+Admin
+M-HV04
+Biểu mẫu hồ sơ hiện vật (hộp thoại thêm, sửa)
+ItemManagementView
+UC08.1, UC08.2
+Admin
+M-HV05
+Quản lý danh mục
+ItemManagementView
+UC08.7
+Admin
+M-HV06
+Giám định hiện vật và lịch sử giám định
+AppraisalForm
+UC09
+Admin
+2.4.2 Phác thảo wireframe module Hiện vật
+4.3 Thiết kế cơ sở dữ liệu
+4.3.1 Quy tắc ánh xạ lớp sang bảng
+Mỗi lớp thực thể một bảng, tên snake_case số nhiều: categories, antique_items, provenance_records, item_images, appraisal_certificates.
+Khóa chính tên_bảng_số_ít_id, kiểu BIGINT AUTO_INCREMENT. Enum lưu VARCHAR kèm CHECK. Tiền DECIMAL(18,2) kèm kiểm tra số nguyên. Thời điểm DATETIME(3) lưu UTC do ứng dụng cấp; ngày giám định kiểu DATE.
+MySQL không có chỉ mục duy nhất có điều kiện, nên các ràng buộc "mỗi hiện vật một ảnh đại diện" và "mỗi hiện vật một chứng thư VALID" dùng cột sinh STORED có giá trị NULL khi không áp dụng, kèm UNIQUE (NULL không vi phạm UNIQUE).
+Cột tên dùng collation utf8mb4_0900_as_ci cho Category.name (không phân biệt hoa thường, phân biệt dấu); cột tên và mô tả hiện vật dùng collation mặc định utf8mb4_0900_ai_ci nên tìm "gom" thấy cả "gốm".
+Composition ánh xạ ON DELETE CASCADE; quan hệ cần giữ lịch sử ánh xạ RESTRICT.
+4.3.2 ERD và lược đồ quan hệ
+4.3.3 Từ điển dữ liệu và chỉ mục
+Bảng categories
+Cột | Kiểu | Ràng buộc | Mô tả
+category_id | BIGINT | PK, AUTO_INCREMENT | Định danh danh mục
+name | VARCHAR(100) COLLATE utf8mb4_0900_as_ci | NOT NULL, UNIQUE, CHECK không rỗng sau khi bỏ khoảng trắng | Tên danh mục
+is_active | BOOLEAN | NOT NULL, DEFAULT TRUE | Đang hoạt động hay đã ẩn
+created_at, updated_at | DATETIME(3) | NOT NULL | Thời điểm theo UTC
+Cột
+Kiểu
+Ràng buộc
+Mô tả
+category_id
+BIGINT
+PK, AUTO_INCREMENT
+Định danh danh mục
+name
+VARCHAR(100) COLLATE utf8mb4_0900_as_ci
+NOT NULL, UNIQUE, CHECK không rỗng sau khi bỏ khoảng trắng
+Tên danh mục
+is_active
+BOOLEAN
+NOT NULL, DEFAULT TRUE
+Đang hoạt động hay đã ẩn
+created_at, updated_at
+DATETIME(3)
+NOT NULL
+Thời điểm theo UTC
+Bảng antique_items
+Cột | Kiểu | Ràng buộc | Mô tả
+item_id | BIGINT | PK, AUTO_INCREMENT | Định danh hiện vật
+item_code | VARCHAR(20) | NOT NULL, UNIQUE | HV-0001...; sinh sau khi có item_id (BR05e), không sửa
+name | VARCHAR(200) | NOT NULL, CHECK độ dài từ 1 | Tên
+description | VARCHAR(2000) | NOT NULL, DEFAULT rỗng | Mô tả
+era_from, era_to | INT | NOT NULL, CHECK era_from <= era_to | Niên đại
+material | VARCHAR(100) | NOT NULL | Chất liệu
+dimensions | VARCHAR(200) | NOT NULL | Kích thước
+item_condition | VARCHAR(20) | NOT NULL, CHECK thuộc ItemCondition | Tình trạng
+status | VARCHAR(30) | NOT NULL, DEFAULT 'DRAFT', CHECK thuộc 8 giá trị ItemStatus | Trạng thái
+is_archived | BOOLEAN | NOT NULL, DEFAULT FALSE | Cờ lưu trữ
+version | BIGINT | NOT NULL, DEFAULT 0 | Khóa lạc quan
+category_id | BIGINT | NOT NULL, FK | Danh mục
+created_by | BIGINT | NOT NULL, FK users | Người tạo
+created_at, updated_at | DATETIME(3) | NOT NULL | UTC
+Cột
+Kiểu
+Ràng buộc
+Mô tả
+item_id
+BIGINT
+PK, AUTO_INCREMENT
+Định danh hiện vật
+item_code
+VARCHAR(20)
+NOT NULL, UNIQUE
+HV-0001...; sinh sau khi có item_id (BR05e), không sửa
+name
+VARCHAR(200)
+NOT NULL, CHECK độ dài từ 1
+Tên
+description
+VARCHAR(2000)
+NOT NULL, DEFAULT rỗng
+Mô tả
+era_from, era_to
+INT
+NOT NULL, CHECK era_from <= era_to
+Niên đại
+material
+VARCHAR(100)
+NOT NULL
+Chất liệu
+dimensions
+VARCHAR(200)
+NOT NULL
+Kích thước
+item_condition
+VARCHAR(20)
+NOT NULL, CHECK thuộc ItemCondition
+Tình trạng
+status
+VARCHAR(30)
+NOT NULL, DEFAULT 'DRAFT', CHECK thuộc 8 giá trị ItemStatus
+Trạng thái
+is_archived
+BOOLEAN
+NOT NULL, DEFAULT FALSE
+Cờ lưu trữ
+version
+BIGINT
+NOT NULL, DEFAULT 0
+Khóa lạc quan
+category_id
+BIGINT
+NOT NULL, FK
+Danh mục
+created_by
+BIGINT
+NOT NULL, FK users
+Người tạo
+created_at, updated_at
+DATETIME(3)
+NOT NULL
+UTC
+Bảng provenance_records
+Cột | Kiểu | Ràng buộc | Mô tả
+provenance_id | BIGINT | PK, AUTO_INCREMENT | Định danh
+item_id | BIGINT | NOT NULL, UNIQUE, FK, ON DELETE CASCADE | Hiện vật
+origin | VARCHAR(300) | NOT NULL | Xuất xứ
+acquisition_source | VARCHAR(300) | NOT NULL | Nguồn thu nhận (không công khai)
+ownership_history | VARCHAR(2000) | NULL | Lịch sở hữu
+supporting_documents | VARCHAR(2000) | NULL | Giấy tờ đi kèm (không công khai)
+Cột
+Kiểu
+Ràng buộc
+Mô tả
+provenance_id
+BIGINT
+PK, AUTO_INCREMENT
+Định danh
+item_id
+BIGINT
+NOT NULL, UNIQUE, FK, ON DELETE CASCADE
+Hiện vật
+origin
+VARCHAR(300)
+NOT NULL
+Xuất xứ
+acquisition_source
+VARCHAR(300)
+NOT NULL
+Nguồn thu nhận (không công khai)
+ownership_history
+VARCHAR(2000)
+NULL
+Lịch sở hữu
+supporting_documents
+VARCHAR(2000)
+NULL
+Giấy tờ đi kèm (không công khai)
+Bảng item_images
+Cột | Kiểu | Ràng buộc | Mô tả
+image_id | BIGINT | PK, AUTO_INCREMENT | Định danh
+item_id | BIGINT | NOT NULL, FK, ON DELETE CASCADE | Hiện vật
+file_path | VARCHAR(300) | NOT NULL | Đường dẫn tương đối trong kho ảnh
+mime_type | VARCHAR(20) | NOT NULL, CHECK IN ('image/jpeg','image/png') | Loại tệp thực
+file_size | BIGINT | NOT NULL, CHECK từ 1 đến 5242880 | Dung lượng byte
+is_primary | BOOLEAN | NOT NULL, DEFAULT FALSE | Ảnh đại diện
+display_order | TINYINT | NOT NULL, CHECK từ 1 đến 5 | Vị trí ảnh, mỗi hiện vật tối đa 5
+uploaded_at | DATETIME(3) | NOT NULL | UTC
+primary_item_id | BIGINT | Cột sinh STORED: IF(is_primary, item_id, NULL); UNIQUE | Bảo đảm tối đa một ảnh đại diện
+Cột
+Kiểu
+Ràng buộc
+Mô tả
+image_id
+BIGINT
+PK, AUTO_INCREMENT
+Định danh
+item_id
+BIGINT
+NOT NULL, FK, ON DELETE CASCADE
+Hiện vật
+file_path
+VARCHAR(300)
+NOT NULL
+Đường dẫn tương đối trong kho ảnh
+mime_type
+VARCHAR(20)
+NOT NULL, CHECK IN ('image/jpeg','image/png')
+Loại tệp thực
+file_size
+BIGINT
+NOT NULL, CHECK từ 1 đến 5242880
+Dung lượng byte
+is_primary
+BOOLEAN
+NOT NULL, DEFAULT FALSE
+Ảnh đại diện
+display_order
+TINYINT
+NOT NULL, CHECK từ 1 đến 5
+Vị trí ảnh, mỗi hiện vật tối đa 5
+uploaded_at
+DATETIME(3)
+NOT NULL
+UTC
+primary_item_id
+BIGINT
+Cột sinh STORED: IF(is_primary, item_id, NULL); UNIQUE
+Bảo đảm tối đa một ảnh đại diện
+Bảng appraisal_certificates
+Cột | Kiểu | Ràng buộc | Mô tả
+appraisal_id | BIGINT | PK, AUTO_INCREMENT | Định danh bản ghi giám định
+item_id | BIGINT | NOT NULL, FK, ON DELETE RESTRICT | Hiện vật
+result | VARCHAR(10) | NOT NULL, CHECK IN ('PASSED','REJECTED') | Kết quả giám định
+appraiser_name | VARCHAR(150) | NOT NULL | Chuyên gia giám định
+appraisal_date | DATE | NOT NULL | Ngày giám định; không ở tương lai (ứng dụng kiểm tra)
+note | VARCHAR(1000) | NULL | Biên bản chi tiết (xác thực, phương pháp khoa học, giá trị văn hóa, đối chiếu)
+estimate_low, estimate_high | DECIMAL(18,2) | NOT NULL, CHECK 0 <= low <= high, là số nguyên | Khoảng giá ước tính thẩm định (Pre-sale Estimate)
+recorded_by | BIGINT | NOT NULL, FK users | Admin ghi nhận
+recorded_at | DATETIME(3) | NOT NULL | UTC
+certificate_no | VARCHAR(30) | NULL, UNIQUE | Số chứng thư độc bản; NULL khi REJECTED
+certificate_status | VARCHAR(10) | NULL, CHECK IN ('VALID','REVOKED') | Trạng thái chứng thư; NULL khi REJECTED
+issued_at | DATETIME(3) | NULL | Thời điểm cấp
+revoked_at | DATETIME(3) | NULL | Thời điểm thu hồi
+valid_item_id | BIGINT | Cột sinh STORED: IF(certificate_status = 'VALID', item_id, NULL); UNIQUE | Tối đa một chứng thư VALID mỗi hiện vật (BR06d)
+Cột
+Kiểu
+Ràng buộc
+Mô tả
+appraisal_id
+BIGINT
+PK, AUTO_INCREMENT
+Định danh bản ghi giám định
+item_id
+BIGINT
+NOT NULL, FK, ON DELETE RESTRICT
+Hiện vật
+result
+VARCHAR(10)
+NOT NULL, CHECK IN ('PASSED','REJECTED')
+Kết quả
+appraiser_name
+VARCHAR(150)
+NOT NULL
+Người giám định
+appraisal_date
+DATE
+NOT NULL
+Ngày giám định; không ở tương lai (ứng dụng kiểm tra)
+note
+VARCHAR(1000)
+NULL
+Ghi chú nội bộ
+estimate_low, estimate_high
+DECIMAL(18,2)
+NOT NULL, CHECK 0 <= low <= high, là số nguyên
+Ước giá nội bộ
+recorded_by
+BIGINT
+NOT NULL, FK users
+Admin ghi
+recorded_at
+DATETIME(3)
+NOT NULL
+UTC
+certificate_no
+VARCHAR(30)
+NULL, UNIQUE
+Số chứng thư; NULL khi REJECTED
+certificate_status
+VARCHAR(10)
+NULL, CHECK IN ('VALID','REVOKED')
+Trạng thái chứng thư
+issued_at
+DATETIME(3)
+NULL
+Thời điểm cấp
+revoked_at
+DATETIME(3)
+NULL
+Thời điểm thu hồi
+valid_item_id
+BIGINT
+Cột sinh STORED: IF(certificate_status = 'VALID', item_id, NULL); UNIQUE
+Tối đa một chứng thư VALID mỗi hiện vật (BR06d)
+4.3.4 Ràng buộc toàn vẹn
+Ràng buộc | Cách bảo đảm | Tầng
+Mỗi hiện vật tối đa 5 ảnh, tối đa một ảnh đại diện | UNIQUE (item_id, display_order) kết hợp CHECK 1 đến 5; UNIQUE primary_item_id; ít nhất một ảnh kiểm tra trong Service | CSDL và ứng dụng
+Tối đa một chứng thư VALID mỗi hiện vật (BR06d) | UNIQUE valid_item_id; khi sửa hồ sơ thì thu hồi chứng thư cũ trước, cấp mới sau, trong cùng giao dịch | CSDL
+Bản ghi giám định bất biến (BR06c, NFR_HV01) | Hai trigger chặn DELETE và mọi UPDATE trừ VALID sang REVOKED; tài khoản ứng dụng không được cấp quyền khác | CSDL
+Chứng thư chỉ cho kết quả PASSED | CHECK ck_certificate_shape | CSDL
+Không xóa hiện vật đã giám định (BR07d) | Khóa ngoại RESTRICT từ appraisal_certificates; Service kiểm tra trước | CSDL và ứng dụng
+Tên danh mục duy nhất không phân biệt hoa thường (BR05f) | UNIQUE trên cột có collation as_ci | CSDL
+Trạng thái hợp lệ | CHECK status; mọi chuyển trạng thái qua transitionTo | CSDL và ứng dụng
+Không ghi đè khi đồng thời (NFR_HV02) | version (JPA @Version) và khóa dòng hiện vật khi ghi | Ứng dụng
+Hiện vật công khai luôn có đúng một chứng thư VALID | Điều kiện nghiệp vụ liên bảng, không biểu diễn bằng CHECK; kiểm bằng truy vấn đối soát: hiện vật AVAILABLE, IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING, SOLD_DELIVERED không có chứng thư VALID phải trả 0 dòng (dùng ở 5.6) | Kiểm thử
+Chỉ phiên chưa kết thúc mới chặn sửa | Kiểm tra phiên qua AuctionQueryPort trong cùng giao dịch, không biểu diễn ở CSDL của module Hiện vật | Ứng dụng
+Ràng buộc
+Cách bảo đảm
+Tầng
+Mỗi hiện vật tối đa 5 ảnh, tối đa một ảnh đại diện
+UNIQUE (item_id, display_order) kết hợp CHECK 1 đến 5; UNIQUE primary_item_id; ít nhất một ảnh kiểm tra trong Service
+CSDL và ứng dụng
+Tối đa một chứng thư VALID mỗi hiện vật (BR06d)
+UNIQUE valid_item_id; khi sửa hồ sơ thì thu hồi chứng thư cũ trước, cấp mới sau, trong cùng giao dịch
+CSDL
+Bản ghi giám định bất biến (BR06c, NFR_HV01)
+Hai trigger chặn DELETE và mọi UPDATE trừ VALID sang REVOKED; tài khoản ứng dụng không được cấp quyền khác
+CSDL
+Chứng thư chỉ cho kết quả PASSED
+CHECK ck_certificate_shape
+CSDL
+Không xóa hiện vật đã giám định (BR07d)
+Khóa ngoại RESTRICT từ appraisal_certificates; Service kiểm tra trước
+CSDL và ứng dụng
+Tên danh mục duy nhất không phân biệt hoa thường (BR05f)
+UNIQUE trên cột có collation as_ci
+CSDL
+Trạng thái hợp lệ
+CHECK status; mọi chuyển trạng thái qua transitionTo
+CSDL và ứng dụng
+Không ghi đè khi đồng thời (NFR_HV02)
+version (JPA @Version) và khóa dòng hiện vật khi ghi
+Ứng dụng
+Hiện vật công khai luôn có đúng một chứng thư VALID
+Điều kiện nghiệp vụ liên bảng, không biểu diễn bằng CHECK; kiểm bằng truy vấn đối soát: hiện vật AVAILABLE, IN_AUCTION, RESERVED_PENDING_PAYMENT, SOLD_DELIVERING, SOLD_DELIVERED không có chứng thư VALID phải trả 0 dòng (dùng ở 5.6)
+Kiểm thử
+Chỉ phiên chưa kết thúc mới chặn sửa
+Kiểm tra phiên qua AuctionQueryPort trong cùng giao dịch, không biểu diễn ở CSDL của module Hiện vật
+Ứng dụng
+4.3.5 Ánh xạ trạng thái đối tượng
+AntiqueItem lưu trạng thái bằng cột status (enum dạng VARCHAR kèm CHECK) và cờ is_archived riêng. Trong hai cách của giáo trình (cột trạng thái hoặc một bảng cho mỗi trạng thái) chọn cột trạng thái, vì có 8 trạng thái dùng chung toàn bộ thuộc tính, chuyển trạng thái xảy ra thường xuyên nên chuyển bảng sẽ phức tạp, và truy vấn công khai lọc đơn giản trên một cột có chỉ mục. Vì không dùng GoF State đầy đủ (4.1.4) nên trạng thái ở mã là enum, lưu bằng tên giá trị.
+4.4.3 Đặc tả màn hình module Hiện vật
+Màn hình | Boundary | UC | Thành phần và dữ liệu hiển thị | Sự kiện và phương thức được gọi
+M-HV01 Danh mục hiện vật | CatalogueView | UC07 | Ô tìm kiếm; bộ lọc danh mục, niên đại, chất liệu, nhóm trạng thái; chọn sắp xếp; thẻ hiện vật; phân trang 12 thẻ | Mở trang: openCatalogue; tìm, lọc, sắp xếp, đổi trang: applyFilter gọi getCatalogue; bấm thẻ: selectItem
+M-HV02 Chi tiết hiện vật | CatalogueView | UC07 | Thư viện ảnh; mã, tên, danh mục, niên đại, chất liệu, kích thước, tình trạng; nhãn trạng thái; khối phiên (giá hiện tại, đếm ngược, nút vào phòng); tab Mô tả, Nguồn gốc, Chứng thư | selectItem gọi getItemDetail; không công khai: renderNotFound
+M-HV03 Quản lý hiện vật | ItemManagementView | UC08 | Bảng hiện vật (mã, tên, danh mục, nhãn trạng thái, ngày cập nhật); lọc 8 trạng thái; hộp "hiện cả đã lưu trữ"; nút Thêm; nút thao tác theo allowedActions | openList gọi listItems; Thêm, Sửa: openForm; Niêm yết, Gỡ, Xóa, Lưu trữ, Khôi phục: requestAction gọi publishItem, unpublishItem, deleteItem, archiveItem, restoreItem; Giám định: mở M-HV06
+M-HV04 Biểu mẫu hồ sơ | ItemManagementView | UC08.1, UC08.2 | Trường hồ sơ và nguồn gốc; vùng tải 1 đến 5 ảnh, chọn ảnh đại diện; lỗi dưới từng trường; hộp xác nhận thu hồi chứng thư | Lưu nháp: submitForm gọi createItem hoặc updateItem; xác nhận: confirmRevoke rồi gửi lại với confirmRevoke = true
+M-HV05 Quản lý danh mục | ItemManagementView | UC08.7 | Bảng danh mục (tên, số hiện vật, trạng thái); ô nhập tên; nút Thêm, Đổi tên, Ẩn, Hiện lại | submitCategory gọi createCategory, renameCategory, hideCategory, restoreCategory
+M-HV06 Giám định | AppraisalForm | UC09 | Hồ sơ hiện vật (chỉ đọc); biểu mẫu kết quả, người giám định, ngày, ghi chú, ước giá thấp và cao; lịch sử giám định kèm trạng thái chứng thư | openAppraisal gọi getAppraisalForm; Lưu kết quả: submitAppraisal gọi recordAppraisal; Lịch sử: openHistory gọi getAppraisalHistory
+Màn hình
+Boundary
+UC
+Thành phần và dữ liệu hiển thị
+Sự kiện và phương thức được gọi
+M-HV01 Danh mục hiện vật
+CatalogueView
+UC07
+Ô tìm kiếm; bộ lọc danh mục, niên đại, chất liệu, nhóm trạng thái; chọn sắp xếp; thẻ hiện vật; phân trang 12 thẻ
+Mở trang: openCatalogue; tìm, lọc, sắp xếp, đổi trang: applyFilter gọi getCatalogue; bấm thẻ: selectItem
+M-HV02 Chi tiết hiện vật
+CatalogueView
+UC07
+Thư viện ảnh; mã, tên, danh mục, niên đại, chất liệu, kích thước, tình trạng; nhãn trạng thái; khối phiên (giá hiện tại, đếm ngược, nút vào phòng); tab Mô tả, Nguồn gốc, Chứng thư
+selectItem gọi getItemDetail; không công khai: renderNotFound
+M-HV03 Quản lý hiện vật
+ItemManagementView
+UC08
+Bảng hiện vật (mã, tên, danh mục, nhãn trạng thái, ngày cập nhật); lọc 8 trạng thái; hộp "hiện cả đã lưu trữ"; nút Thêm; nút thao tác theo allowedActions
+openList gọi listItems; Thêm, Sửa: openForm; Niêm yết, Gỡ, Xóa, Lưu trữ, Khôi phục: requestAction gọi publishItem, unpublishItem, deleteItem, archiveItem, restoreItem; Giám định: mở M-HV06
+M-HV04 Biểu mẫu hồ sơ
+ItemManagementView
+UC08.1, UC08.2
+Trường hồ sơ và nguồn gốc; vùng tải 1 đến 5 ảnh, chọn ảnh đại diện; lỗi dưới từng trường; hộp xác nhận thu hồi chứng thư
+Lưu nháp: submitForm gọi createItem hoặc updateItem; xác nhận: confirmRevoke rồi gửi lại với confirmRevoke = true
+M-HV05 Quản lý danh mục
+ItemManagementView
+UC08.7
+Bảng danh mục (tên, số hiện vật, trạng thái); ô nhập tên; nút Thêm, Đổi tên, Ẩn, Hiện lại
+submitCategory gọi createCategory, renameCategory, hideCategory, restoreCategory
+M-HV06 Giám định
+AppraisalForm
+UC09
+Hồ sơ hiện vật (chỉ đọc); biểu mẫu kết quả, người giám định, ngày, ghi chú, ước giá thấp và cao; lịch sử giám định kèm trạng thái chứng thư
+openAppraisal gọi getAppraisalForm; Lưu kết quả: submitAppraisal gọi recordAppraisal; Lịch sử: openHistory gọi getAppraisalHistory

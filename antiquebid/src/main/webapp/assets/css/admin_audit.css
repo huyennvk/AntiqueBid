@@ -1,0 +1,15 @@
+/* ==========================================================================
+   ADMIN_AUDIT.CSS - Nhật ký kiểm toán hệ thống
+   Tương ứng: admin/audit_logs.jsp
+   Thiết kế: Light Elegant (Vàng sáng, Nâu cổ điển)
+   ========================================================================== */
+
+@import url('admin.css');
+
+.admin-audit-table code {
+    font-size: 11px;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #475569;
+}

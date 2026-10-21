@@ -1,0 +1,655 @@
+/* ==========================================================================
+   CATALOGUE.CSS - Trang danh mục & sàn đấu giá Cổ Vật Đường
+   Palette: Light Elegant (Vàng sáng, Nâu cổ điển, Nền giấy ngà)
+   ========================================================================== */
+
+/* 1. Hero Banner Triển Lãm Hoàng Gia (Rút gọn) */
+.hero-banner {
+    background: linear-gradient(135deg, rgba(253, 250, 245, 0.90), rgba(247, 241, 232, 0.88)), 
+                url('../images/hero_bg.jpg') center/cover no-repeat;
+    color: var(--text-main);
+    padding: 28px 0 24px;
+    text-align: center;
+    border-bottom: 1.5px solid var(--gold);
+    box-shadow: 0 3px 14px rgba(61, 43, 31, 0.04);
+}
+
+.hero-title {
+    color: var(--primary);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+}
+
+.hero-desc {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* 2. Layout Hai Cột: Sidebar Bộ Lọc & Nội Dung Danh Mục */
+.catalogue-main {
+    padding-top: 36px;
+    padding-bottom: 60px;
+}
+
+/* 2. Layout Hai Cột: Sidebar Bộ Lọc & Nội Dung Danh Mục */
+.catalogue-main {
+    padding-top: 36px;
+    padding-bottom: 60px;
+}
+
+/* Layout khi có sidebar (Chế độ Tìm kiếm / Lọc) */
+.catalogue-layout.has-sidebar {
+    display: grid;
+    grid-template-columns: 285px 1fr;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.catalogue-layout.has-sidebar .catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 1200px) {
+    .catalogue-layout.has-sidebar .catalogue-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .catalogue-layout.has-sidebar {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Layout bình thường KHÔNG có sidebar (Hiển thị đầy đủ trang rộng - 4 thẻ/hàng) */
+.catalogue-layout.no-sidebar {
+    display: block;
+}
+
+.catalogue-layout.no-sidebar .catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 1350px) {
+    .catalogue-layout.no-sidebar .catalogue-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 880px) {
+    .catalogue-layout.no-sidebar .catalogue-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 580px) {
+    .catalogue-layout.no-sidebar .catalogue-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.catalogue-content {
+    min-width: 0;
+}
+
+/* Nút Mở Tìm kiếm & Bộ lọc khi ở chế độ bình thường */
+.btn-toggle-search-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold-hover);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.btn-toggle-search-bar:hover {
+    color: #a01616;
+    border-color: #a01616;
+    background: #fffafa;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(160, 22, 22, 0.12);
+}
+
+/* Thanh thông báo kết quả lọc & tìm kiếm đang hoạt động */
+.search-active-banner {
+    background: #ffffff;
+    border: 1px solid #ebd9c8;
+    border-left: 4px solid #a01616;
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(61, 43, 31, 0.04);
+}
+
+.search-active-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #2c2016;
+}
+
+.search-active-tags {
+    font-size: 13px;
+    color: #776a5c;
+    margin-top: 3px;
+}
+
+.category-filters-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 22px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 500;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    transition: all 0.25s ease;
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+}
+
+.filter-pill:hover,
+.filter-pill.active {
+    background: linear-gradient(135deg, #e0b653 0%, #cba135 100%);
+    color: #2d2016;
+    border-color: #cba135;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(203, 161, 53, 0.35);
+}
+
+/* 3. Tiêu Đề Phân Khu Danh Mục (Khớp 100% thiết kế: Biểu tượng 3D, Chữ đậm, Pill badge và Vạch kẻ mỏng) */
+.catalogue-section-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ebd9c8;
+}
+
+.catalogue-section-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-dot-live {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #f87171 0%, #dc2626 50%, #991b1b 100%);
+    box-shadow: 0 1.5px 3px rgba(185, 28, 28, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+.section-dot-upcoming {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fbbf24 0%, #d97706 50%, #92400e 100%);
+    box-shadow: 0 1.5px 3px rgba(217, 119, 6, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+.catalogue-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c1a12;
+    margin: 0;
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.catalogue-count-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: 9999px;
+    background: #fdf8ee;
+    color: #a16207;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #f2e2ce;
+    line-height: 1.3;
+}
+
+.btn-clear-category {
+    font-size: 13px;
+    color: #991b1b;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.btn-clear-category:hover {
+    color: #dc2626;
+    text-decoration: underline;
+}
+
+/* 4. Thẻ Hiện Vật & Phiên Đấu Giá (Auction Card - 4 Cột / Dòng) */
+.auction-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    border: 1.5px solid var(--border);
+    background: #ffffff;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.auction-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold);
+}
+
+.auction-card-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--surface-alt);
+}
+
+.auction-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.auction-card:hover .auction-card-img {
+    transform: scale(1.04);
+}
+
+.auction-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.auction-card-category {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(36, 26, 19, 0.75);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    border: 1px solid rgba(203, 161, 53, 0.4);
+}
+
+.auction-card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.item-code {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--gold-hover);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.auction-card-title {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.35;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 42px;
+}
+
+.auction-card-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.item-specs-preview {
+    font-size: 12.5px;
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.certificate-verified {
+    margin-top: 4px;
+    color: #166534;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.auction-card-timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--surface-alt);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.auction-card-timer-time {
+    color: #b91c1c;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    font-family: 'Plus Jakarta Sans', monospace;
+    letter-spacing: 0.3px;
+}
+
+.auction-card-price-box {
+    background: linear-gradient(135deg, #fbf7ee 0%, #f6efe4 100%);
+    border: 1px solid #e8dfd3;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+}
+
+.price-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.price-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: #b91c1c;
+    font-family: var(--font-heading);
+    margin-top: 2px;
+}
+
+.price-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.card-actions-row {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    align-items: stretch;
+}
+
+.card-actions-row .btn {
+    border-radius: 8px;
+}
+
+.btn-watchlist-toggle {
+    padding: 10px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-watchlist-toggle.active {
+    background: #fdf5eb;
+    color: var(--gold-dark);
+    border: 1px solid var(--gold);
+    font-weight: 600;
+}
+
+.btn-watchlist-toggle.active:hover {
+    background: #fae7cf;
+    color: #6d4715;
+}
+
+/* 5. Khung Trống (Empty State) */
+.empty-state-card {
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    border: 1.5px dashed var(--border);
+    background: #ffffff;
+    border-radius: var(--radius);
+}
+
+.empty-state-icon {
+    font-size: 42px;
+    margin-bottom: 14px;
+}
+
+.empty-state-title {
+    font-size: 18px;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.empty-state-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   6. THANH ĐIỀU HƯỚNG PHÂN TRANG (Mỗi phần Đang / Sắp / Đã chỉ hiện 2 hàng)
+   Tham khảo nguyên bản: Đấu Giá Lạc Việt
+   Bao gồm: Nút Xem Tất Cả (viền đỏ), Vạch chỉ báo Chấm tròn (đỏ đô), 2 Mũi tên tròn
+   ========================================================================== */
+.catalogue-pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 28px;
+    margin-bottom: 24px;
+    padding: 0 4px;
+}
+
+/* Nút Xem Tất Cả (Khung viền đỏ mỏng, chữ đỏ Lạc Việt) */
+.pagi-btn-view-all {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 22px;
+    border: 1px solid #a01616;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #a01616;
+    font-size: 13.5px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(160, 22, 22, 0.05);
+}
+
+.pagi-btn-view-all:hover {
+    background: #fdf2f2;
+    border-color: #881212;
+    color: #881212;
+    box-shadow: 0 3px 10px rgba(160, 22, 22, 0.12);
+}
+
+.pagi-btn-view-all:active {
+    transform: translateY(1px);
+}
+
+/* 2 Vạch ngang mảnh nối giữa */
+.pagi-divider-line {
+    flex: 1;
+    height: 1px;
+    background: #e2d9cd;
+    min-width: 30px;
+}
+
+/* Cụm chấm chỉ báo trang */
+.pagi-dots-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.pagi-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ded5c8;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+}
+
+.pagi-dot:hover {
+    background: #b5a898;
+    transform: scale(1.2);
+}
+
+/* Chấm tròn đang chọn: dẹt dài thành hình thoi / viên thuốc màu đỏ đô */
+.pagi-dot.active {
+    width: 22px;
+    height: 8px;
+    border-radius: 4px;
+    background: #a01616;
+    box-shadow: 0 2px 6px rgba(160, 22, 22, 0.3);
+}
+
+/* Cụm 2 nút mũi tên tròn */
+.pagi-nav-arrows {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.pagi-arrow-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #a01616;
+    background: #ffffff;
+    color: #a01616;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(160, 22, 22, 0.06);
+}
+
+.pagi-arrow-btn svg {
+    width: 17px;
+    height: 17px;
+    stroke: #a01616;
+    transition: stroke 0.2s;
+}
+
+.pagi-arrow-btn:hover:not(.disabled) {
+    background: #fdf2f2;
+    border-color: #881212;
+    color: #881212;
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(160, 22, 22, 0.15);
+}
+
+.pagi-arrow-btn:hover:not(.disabled) svg {
+    stroke: #881212;
+}
+
+.pagi-arrow-btn:active:not(.disabled) {
+    transform: scale(0.96);
+}
+
+.pagi-arrow-btn.disabled {
+    opacity: 0.35;
+    border-color: #d8cec1;
+    color: #a69c8e;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+.pagi-arrow-btn.disabled svg {
+    stroke: #a69c8e;
+}
+
+@media (max-width: 640px) {
+    .catalogue-pagination-bar {
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+    }
+    .pagi-divider-line {
+        display: none;
+    }
+    .pagi-dots-wrap {
+        order: 2;
+    }
+    .pagi-btn-view-all {
+        order: 1;
+    }
+    .pagi-nav-arrows {
+        order: 3;
+    }
+}
+

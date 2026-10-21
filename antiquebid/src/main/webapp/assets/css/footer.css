@@ -1,0 +1,38 @@
+/* ==========================================================================
+   FOOTER.CSS - Chân trang hệ thống Cổ Vật Đường
+   Tương ứng: WEB-INF/footer.jsp
+   Phong cách: Elegant Antique Walnut Tone (Nâu gỗ trầm, viền chỉ vàng hoàng gia)
+   ========================================================================== */
+
+/* 1. Footer Khung Chính */
+.footer {
+    background: #241a13;
+    color: #c7b8aa;
+    padding: 18px 0;
+    border-top: 2px solid var(--gold);
+    margin-top: auto;
+    width: 100%;
+}
+
+/* 2. Dòng Bản Quyền & Thông Tin HTTTQL */
+.footer-bottom {
+    text-align: center;
+    font-size: 13px;
+    color: #a89687;
+    line-height: 1.6;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+/* 3. Responsive Footer */
+@media (max-width: 768px) {
+    .footer {
+        padding: 14px 0;
+    }
+    .footer-bottom {
+        font-size: 12px;
+        padding: 0 12px;
+    }
+}

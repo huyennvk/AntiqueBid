@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 540" width="856" height="540">
+  <defs>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8f4f8"/>
+      <stop offset="40%" stop-color="#d4ecf5"/>
+      <stop offset="70%" stop-color="#fdf4e3"/>
+      <stop offset="100%" stop-color="#e0f0f5"/>
+    </linearGradient>
+    <linearGradient id="goldChip" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe27a"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#aa820a"/>
+    </linearGradient>
+    <pattern id="guilloche" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 0 20 Q 10 0 20 20 T 40 20" fill="none" stroke="#b2d4e5" stroke-width="0.7" opacity="0.45"/>
+      <path d="M 20 0 Q 30 20 40 0" fill="none" stroke="#d5c8a3" stroke-width="0.7" opacity="0.45"/>
+    </pattern>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Card Base -->
+  <rect x="10" y="10" width="836" height="520" rx="24" fill="url(#cardBg)" stroke="#8cb8cc" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="10" y="10" width="836" height="520" rx="24" fill="url(#guilloche)"/>
+
+  <!-- National Header -->
+  <!-- Red Emblem with Yellow Star -->
+  <circle cx="85" cy="72" r="32" fill="#da251d" stroke="#f6c90e" stroke-width="2.5"/>
+  <circle cx="85" cy="72" r="28" fill="#c41a12"/>
+  <polygon points="85,52 89,64 101,64 91,72 95,84 85,76 75,84 79,72 69,64 81,64" fill="#f6c90e"/>
+
+  <text x="440" y="52" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="16" font-weight="700" fill="#c11a14" text-anchor="middle" letter-spacing="1.5">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</text>
+  <text x="440" y="70" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="12" font-weight="600" fill="#2c3e50" text-anchor="middle" letter-spacing="1">Độc lập - Tự do - Hạnh phúc</text>
+  <line x1="330" y1="78" x2="550" y2="78" stroke="#c11a14" stroke-width="1.5"/>
+  <text x="440" y="93" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="10" font-style="italic" fill="#555" text-anchor="middle">SOCIALIST REPUBLIC OF VIET NAM / Independence - Freedom - Happiness</text>
+
+  <!-- Title -->
+  <text x="440" y="132" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="24" font-weight="800" fill="#a01813" text-anchor="middle" letter-spacing="2">CĂN CƯỚC CÔNG DÂN</text>
+  <text x="440" y="150" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="12" font-weight="600" fill="#444" text-anchor="middle" letter-spacing="1">IDENTITY CARD</text>
+
+  <!-- QR Code Mockup in Top Right -->
+  <rect x="730" y="35" width="85" height="85" fill="#fff" rx="6" stroke="#bbb" stroke-width="1"/>
+  <!-- QR Grid details -->
+  <rect x="738" y="43" width="22" height="22" fill="#111"/>
+  <rect x="742" y="47" width="14" height="14" fill="#fff"/>
+  <rect x="746" y="51" width="6" height="6" fill="#111"/>
+
+  <rect x="785" y="43" width="22" height="22" fill="#111"/>
+  <rect x="789" y="47" width="14" height="14" fill="#fff"/>
+  <rect x="793" y="51" width="6" height="6" fill="#111"/>
+
+  <rect x="738" y="90" width="22" height="22" fill="#111"/>
+  <rect x="742" y="94" width="14" height="14" fill="#fff"/>
+  <rect x="746" y="98" width="6" height="6" fill="#111"/>
+
+  <rect x="768" y="55" width="8" height="8" fill="#111"/>
+  <rect x="772" y="75" width="12" height="6" fill="#111"/>
+  <rect x="788" y="75" width="16" height="8" fill="#111"/>
+  <rect x="768" y="95" width="10" height="15" fill="#111"/>
+  <rect x="785" y="100" width="20" height="10" fill="#111"/>
+
+  <!-- Left Photo Box -->
+  <g transform="translate(45, 175)">
+    <rect x="0" y="0" width="170" height="220" rx="8" fill="#e2edf2" stroke="#a0bcc8" stroke-width="2"/>
+    <!-- Silhouette Avatar -->
+    <circle cx="85" cy="80" r="45" fill="#88a5b5"/>
+    <path d="M 25 210 C 25 150, 145 150, 145 210 Z" fill="#88a5b5"/>
+    <rect x="0" y="228" width="170" height="26" rx="4" fill="#1a4f78"/>
+    <text x="85" y="246" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">ẢNH CHỦ THỂ CCCD</text>
+  </g>
+
+  <!-- Electronic Chip Icon -->
+  <g transform="translate(235, 185)">
+    <rect x="0" y="0" width="62" height="48" rx="6" fill="url(#goldChip)" stroke="#8e6d08" stroke-width="1.5"/>
+    <line x1="0" y1="24" x2="62" y2="24" stroke="#8e6d08" stroke-width="1.2"/>
+    <line x1="31" y1="0" x2="31" y2="48" stroke="#8e6d08" stroke-width="1.2"/>
+    <circle cx="31" cy="24" r="12" fill="none" stroke="#8e6d08" stroke-width="1.2"/>
+  </g>
+
+  <!-- Number & Personal Data Fields -->
+  <!-- Số CCCD -->
+  <text x="320" y="200" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="14" fill="#333">Số / <tspan font-style="italic" font-size="12">No.:</tspan></text>
+  <text x="375" y="206" font-family="'Courier New', monospace, sans-serif" font-size="28" font-weight="900" fill="#b0120a" letter-spacing="3">001202000017</text>
+
+  <!-- Họ và tên -->
+  <text x="240" y="260" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" fill="#555">Họ và tên / <tspan font-style="italic" font-size="11">Full name:</tspan></text>
+  <text x="240" y="286" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="22" font-weight="800" fill="#0c2340" letter-spacing="1">ĐINH VĂN HÙNG</text>
+
+  <!-- Ngày sinh, Giới tính, Quốc tịch -->
+  <text x="240" y="325" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" fill="#555">Ngày sinh / <tspan font-style="italic" font-size="11">Date of birth:</tspan></text>
+  <text x="390" y="325" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="15" font-weight="700" fill="#111">15/08/1990</text>
+
+  <text x="510" y="325" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" fill="#555">Giới tính / <tspan font-style="italic" font-size="11">Sex:</tspan></text>
+  <text x="610" y="325" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="15" font-weight="700" fill="#111">Nam</text>
+
+  <text x="665" y="325" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" fill="#555">Quốc tịch:</text>
+  <text x="740" y="325" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="15" font-weight="700" fill="#111">Việt Nam</text>
+
+  <!-- Quê quán -->
+  <text x="240" y="365" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" fill="#555">Quê quán / <tspan font-style="italic" font-size="11">Place of origin:</tspan></text>
+  <text x="430" y="365" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="14" font-weight="700" fill="#111">Hoàn Kiếm, Hà Nội</text>
+
+  <!-- Nơi thường trú -->
+  <text x="240" y="405" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="13" fill="#555">Nơi thường trú / <tspan font-style="italic" font-size="11">Place of residence:</tspan></text>
+  <text x="240" y="428" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="14" font-weight="700" fill="#111">Số 18 Tràng Tiền, Hoàn Kiếm, Hà Nội</text>
+
+  <!-- Giá trị đến -->
+  <text x="240" y="475" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="12" fill="#555">Có giá trị đến / <tspan font-style="italic" font-size="11">Date of expiry:</tspan></text>
+  <text x="410" y="475" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="14" font-weight="700" fill="#0b5e28">15/08/2050 (Không thời hạn)</text>
+
+  <!-- Watermark seal at bottom right -->
+  <circle cx="750" cy="450" r="42" fill="none" stroke="#2a6f97" stroke-width="2" stroke-dasharray="4 2" opacity="0.6"/>
+  <text x="750" y="445" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="10" font-weight="700" fill="#2a6f97" text-anchor="middle" opacity="0.7">BỘ CÔNG AN</text>
+  <text x="750" y="460" font-family="'Segoe UI', Roboto, Arial, sans-serif" font-size="9" font-weight="600" fill="#2a6f97" text-anchor="middle" opacity="0.7">VIỆT NAM</text>
+</svg>
