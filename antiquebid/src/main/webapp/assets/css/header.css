@@ -622,30 +622,158 @@ header {
 
 @media (max-width: 768px) {
     .nav-content {
+        display: flex;
         flex-wrap: wrap;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        min-height: auto;
+        align-items: center;
         justify-content: space-between;
-        gap: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        min-height: auto;
+        gap: 8px 10px;
     }
+
+    .nav-brand {
+        order: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .brand-logo-img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .brand-title {
+        font-size: 17px;
+    }
+
+    .brand-subtitle {
+        display: none;
+    }
+
+    /* display: contents giải phóng các phần tử con để xếp thứ tự linh hoạt */
+    .nav-right-actions {
+        display: contents;
+    }
+
+    .nav-clock {
+        order: 2;
+        margin-left: auto;
+        margin-right: 6px;
+        padding: 3px 8px;
+        border-radius: 6px;
+        background: #fdfaf5;
+        border: 1px solid #ebd9c8;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-clock-time {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #8c601e;
+    }
+
+    .nav-clock-date {
+        display: none;
+    }
+
+    .nav-user {
+        order: 2;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    .nav-user-greeting {
+        display: none;
+    }
+
+    .btn-header-login {
+        padding: 6px 12px;
+        font-size: 12.5px;
+        border-radius: 6px;
+    }
+
+    .btn-header-reg {
+        padding: 6px 10px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+
+    /* Dòng 2: Thanh tìm kiếm chiếm 100% bề ngang */
     .nav-search-bar-wrap {
-        order: 4;
-        width: 100%;
-        max-width: 100%;
-        margin: 4px 0 0;
-    }
-    .nav-links {
         order: 3;
         width: 100%;
+        max-width: 100%;
+        margin: 4px 0 2px;
+    }
+
+    .nav-search-bar-form {
+        width: 100%;
+        height: 38px;
+    }
+
+    .nav-search-bar-input {
+        font-size: 13.5px;
+        padding: 0 40px 0 14px;
+    }
+
+    /* Dòng 3: Menu danh mục & phiên đấu giá */
+    .nav-links {
+        order: 4;
+        width: 100%;
+        display: flex;
         justify-content: center;
         flex-wrap: wrap;
         border-top: 1px solid #ebd9c8;
         padding-top: 8px;
-        gap: 10px;
-    }
-    .nav-right-actions {
-        order: 2;
+        margin-top: 2px;
         gap: 8px;
     }
+
+    .nav-link-item {
+        font-size: 13px;
+        padding: 5px 12px;
+        background: #ffffff;
+        border: 1px solid #ebd9c8;
+        border-radius: 16px;
+    }
+
+    .nav-menu-sub {
+        min-width: 240px;
+        max-width: calc(100vw - 28px);
+        left: 0;
+        right: auto;
+        z-index: 1050;
+    }
+
+    .nav-dropdown-menu {
+        right: 0;
+        left: auto;
+        max-width: calc(100vw - 28px);
+        z-index: 1050;
+    }
 }
+
+@media (max-width: 440px) {
+    .nav-clock {
+        display: none;
+    }
+    .btn-header-reg {
+        display: none;
+    }
+    .nav-links {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 2px;
+    }
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+}
+

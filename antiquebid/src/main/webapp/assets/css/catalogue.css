@@ -93,8 +93,10 @@
 }
 
 @media (max-width: 580px) {
+    .catalogue-layout.has-sidebar .catalogue-grid,
     .catalogue-layout.no-sidebar .catalogue-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 }
 
@@ -651,5 +653,43 @@
     .pagi-nav-arrows {
         order: 3;
     }
+
+    .hero-banner {
+        padding: 20px 14px 18px;
+    }
+    .hero-title {
+        font-size: 20px;
+    }
+    .hero-desc {
+        font-size: 13px;
+    }
+
+    .catalogue-main {
+        padding-top: 20px;
+        padding-bottom: 40px;
+    }
+
+    .catalogue-section-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+    .catalogue-section-title {
+        font-size: 18px;
+    }
+
+    .filter-pill {
+        padding: 7px 15px;
+        font-size: 13px;
+    }
+
+    .search-active-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 14px;
+    }
 }
+
 

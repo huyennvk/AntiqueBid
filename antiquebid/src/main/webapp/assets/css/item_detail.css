@@ -38,6 +38,17 @@
 @media (max-width: 900px) {
     .item-detail-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 580px) {
+    .item-photo-img {
+        height: 260px;
+    }
+    .item-detail-main {
+        padding-top: 18px;
+        padding-bottom: 36px;
     }
 }
 

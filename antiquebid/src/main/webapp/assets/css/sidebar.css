@@ -46,6 +46,16 @@
     }
 }
 
+@media (max-width: 580px) {
+    .catalogue-layout.has-sidebar .catalogue-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .sidebar-card {
+        padding: 18px 14px;
+    }
+}
+
 .sidebar-filter-form {
     display: flex;
     flex-direction: column;

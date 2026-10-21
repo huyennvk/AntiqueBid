@@ -48,13 +48,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- CSS Hệ thống chung (Base: Biến màu, Reset, Typography, Buttons, Badges, Utilities) -->
-    <link rel="stylesheet" href="<%= ctx %>/assets/css/style.css?v=15">
-    <link rel="stylesheet" href="<%= ctx %>/assets/css/header.css?v=18">
-    <link rel="stylesheet" href="<%= ctx %>/assets/css/footer.css?v=15">
+    <link rel="stylesheet" href="<%= ctx %>/assets/css/style.css?v=20">
+    <link rel="stylesheet" href="<%= ctx %>/assets/css/header.css?v=20">
+    <link rel="stylesheet" href="<%= ctx %>/assets/css/footer.css?v=20">
 
     <!-- CSS Module chuyên biệt cho từng trang -->
     <% if (extraCss != null && !extraCss.trim().isEmpty()) { %>
-        <link rel="stylesheet" href="<%= ctx %>/assets/css/<%= extraCss %>?v=15">
+        <link rel="stylesheet" href="<%= ctx %>/assets/css/<%= extraCss %>?v=20">
     <% } %>
     <!-- Khởi tạo mốc thời gian máy chủ để đồng bộ đồng hồ toàn sàn -->
     <script>
